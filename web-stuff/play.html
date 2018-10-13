@@ -12,56 +12,50 @@
   <!-- Latest compiled JavaScript -->
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 
+  <!-- Our custom theme CSS -->
+  <style>
+  .jumbotron { 
+      background-color: #ff0066; /* Nice Red */
+      color: #ffffff;
+  }
+  </style>
+
 </head>
 
 <body>
-  <h1 class = "display-2"> Connect 3</h1>
-  <center>
+
+  <div class="text-center">
+  <!-- Main Content of Connect 3 Page -->
+  <h1 class = "jumbotron"> Connect 3</h1>
     <h2>Choose your players: </h2>
-    <p>
       <!-- Player 1 -->
       <span class="dropdown">
-        <a class="btn btn-secondary dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-          Player 1
+        <a class="btn btn-secondary dropdown-toggle" href="#" role="button" id="player1DropDown" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+          Player 1 <b class="caret"></b>
         </a>
 
-        <span class="dropdown-menu" aria-labelledby="dropdownMenuLink">
-          <a class="dropdown-item" href="#">Player</a>
-          <a class="dropdown-item" href="#">Random</a>
-          <a class="dropdown-item" href="#">AI stuff</a>
-        </span>
+        <ul class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+          <li><a class="dropdown-item" href="#">Player</a></li>
+          <li><a class="dropdown-item" href="#">Random</a></li>
+          <li><a class="dropdown-item" href="#">AI stuff</a></li>
+        </ul>
       </span>
 
       &nbsp; vs. &nbsp;
 
       <!-- Player 2 -->
       <span class="dropdown">
-        <a class="btn btn-secondary dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-          Player 2
+        <a class="btn btn-secondary dropdown-toggle" href="#" role="button" id="player2DropDown" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+          Player 2 <b class="caret"></b>
         </a>
 
-        <span class="dropdown-menu" aria-labelledby="dropdownMenuLink">
-          <a class="dropdown-item" href="#">Player</a>
-          <a class="dropdown-item" href="#">Random</a>
-          <a class="dropdown-item" href="#">AI stuff</a>
-        </span>
+        <ul class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+          <li><a class="dropdown-item" href="#">Player</a></li>
+          <li><a class="dropdown-item" href="#">Random</a></li>
+          <li><a class="dropdown-item" href="#">AI stuff</a></li>
+        </ul>
       </span>
-      <div class="btn-group">
-        <button type="button" class="btn btn-danger">Danger</button>
-        <button type="button" class="btn btn-danger dropdown-toggle px-3" data-toggle="dropdown" aria-haspopup="true"
-        aria-expanded="false">
-        <span class="sr-only">Toggle Dropdown</span>
-      </button>
-      <div class="dropdown-menu">
-        <a class="dropdown-item" href="#">Action</a>
-        <a class="dropdown-item" href="#">Another action</a>
-        <a class="dropdown-item" href="#">Something else here</a>
-        <div class="dropdown-divider"></div>
-        <a class="dropdown-item" href="#">Separated link</a>
-      </div>
-    </div>
-  </p>
-</center>
+</div>
 <!-- More HTML will be here soon :) -->
 </body>
 </html>
