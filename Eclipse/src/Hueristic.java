@@ -1,5 +1,5 @@
 import java.util.*;
-public class Hueristic {
+public class Hueristic implements Connect3{
 	public int play() {
 		return play(new C3(4,5));
 	}
