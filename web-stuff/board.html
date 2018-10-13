@@ -14,10 +14,28 @@
 
   <!-- Scripts go here -->
   <script>
+            //Initialize proper grid size
+        $(document).ready(draw);
+
+        //Make sure that the board scales upon the page being resized
+        $(window).on("resize", draw);
+
+        function draw(){
+
+          var grid = document.getElementById("grid");
+
+          //Scale grid outer borders
+          grid.style.width = ($(window).width() / 2) + "px";
+          grid.style.height = (grid.style.width.slice(0, grid.style.width.length-2) * 0.8) + "px";
+        }
   </script>
 
-  <!-- Our custom theme CSS -->
-  <link rel="stylesheet" href="style.css">
+    <!-- Our custom theme CSS -->
+    <link rel="stylesheet" href="style.css">
+
+    <!-- TODO: move to general CSS document -->
+    <style type="text/css">
+    </style>
 
 </head>
 
@@ -25,8 +43,47 @@
 
   <div class="text-center">
     <!-- Main Content of Connect 3 Page -->
-    <h1 class = "jumbotron"> Connect 3</h1>
-    <h2>Choose your players: </h2>
+    <h1 class = "jumbotron">Connect 3</h1>
 
-</body>
-</html>
+    <!-- Connect 3 grid -->
+        <table id="grid" border="2" align="center" width="400px">
+          <tr>
+            <td>.</td>
+            <td>.</td>
+            <td>.</td>
+            <td>.</td>
+            <td>.</td>
+          </tr>
+          <tr>
+            <td>.</td>
+            <td>.</td>
+            <td>.</td>
+            <td>.</td>
+            <td>.</td>
+          </tr>
+          <tr>
+            <td>.</td>
+            <td>.</td>
+            <td>.</td>
+            <td>.</td>
+            <td>.</td>
+          </tr>
+          <tr>
+            <td>.</td>
+            <td>.</td>
+            <td>.</td>
+            <td>.</td>
+            <td>.</td>
+          </tr>
+        </table>
+
+    <br />
+
+    <!-- Players -->
+    <div id="players">
+      <h3 style="display:inline;">Player 1</h3> 
+      &nbsp;&nbsp;&nbsp;&nbsp;vs.&nbsp;&nbsp;&nbsp;&nbsp;  
+      <h3 style="display:inline;">Player 2</h3></div>
+
+  </body>
+  </html>
