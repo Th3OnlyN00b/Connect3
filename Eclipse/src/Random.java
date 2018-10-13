@@ -25,17 +25,17 @@ public class Random {
 				if(child.winner==goal) {
 					return child.lastCol;
 				}
-				else {
-					for(C3 c : child.children()) {
-						if(c.winner!=0&&c.winner!=goal) {
-							possibleMoves.remove((Object)child.lastCol);
-						}
+				
+			}
+			else {
+				for(C3 c : child.children()) {
+					if(c.winner!=0&&c.winner!=goal) {
+						possibleMoves.remove((Object)child.lastCol);
 					}
-					
 				}
+				
 			}
 		}
-		C3 best = children.get(0);
 		
 		if(possibleMoves.size()>0) {
 			return possibleMoves.get((int)(Math.random()*possibleMoves.size()));
