@@ -53,17 +53,13 @@
   </script>
 
   <!-- Our custom theme CSS -->
-<<<<<<< HEAD
   <style>
   .jumbotron {
     background-color: #ff0066; /* Nice Red */
     color: #ffffff;
   }
 </style>
-=======
   <link rel="stylesheet" href="style.css">
->>>>>>> 124fc338136757e699cb54b69cf1fc97c8780bc3
-
 </head>
 
 <body>
@@ -89,7 +85,7 @@
         <li><a class="dropdown-item" onclick="replacePlayer1('Human', 'human')">Human</a></li>
         <li><a class="dropdown-item" onclick="replacePlayer1('Random', 'random')">Random</a></li>
         <li><a class="dropdown-item" onclick="replacePlayer1('Auto', 'aw')">Auto-Win</a></li>
-        <li><a class="dropdown-item" onclick="replacePlayer1('Minmax', 'minimax')">Minmax</a></li>
+        <li><a class="dropdown-item" onclick="replacePlayer1('Minimax', 'minimax')">Minimax</a></li>
         <li><a class="dropdown-item" onclick="replacePlayer1('Pruned minimax', 'pruned-mm')">Pruned minimax</a></li>
       </ul>
     </span>
@@ -117,7 +113,7 @@
 
   </div>
 
-  <!-- Warning modal for slow algorithms; some code taken from www.w3schools.org -->
+  <!-- Warning modal for slow algorithms -->
   <div class="modal fade" id="warningModal" role="dialog">
     <div class="modal-dialog">
 
@@ -137,7 +133,7 @@
           <button type="button" class="btn btn-warning" data-dismiss="modal" onclick="sendToServer()">Proceed</button>
         </div>
       </div>
-      
+
     </div>
   </div>
 
@@ -159,7 +155,7 @@
           <button type="button" class="btn btn-primary" data-dismiss="modal">OK</button>
         </div>
       </div>
-      
+
     </div>
   </div>
 
