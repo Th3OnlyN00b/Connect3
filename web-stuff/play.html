@@ -15,47 +15,71 @@
   <!-- Our custom theme CSS -->
   <style>
   .jumbotron { 
-      background-color: #ff0066; /* Nice Red */
-      color: #ffffff;
+    background-color: #ff0066; /* Nice Red */
+    color: #ffffff;
   }
-  </style>
+</style>
 
 </head>
 
 <body>
 
   <div class="text-center">
-  <!-- Main Content of Connect 3 Page -->
-  <h1 class = "jumbotron"> Connect 3</h1>
+    <!-- Main Content of Connect 3 Page -->
+    <h1 class = "jumbotron"> Connect 3</h1>
     <h2>Choose your players: </h2>
-      <!-- Player 1 -->
-      <span class="dropdown">
-        <a class="btn btn-secondary dropdown-toggle" href="#" role="button" id="player1DropDown" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-          Player 1 <b class="caret"></b>
-        </a>
+    <!-- Player 1 -->
+    <span class="dropdown">
+      <a class="btn btn-secondary dropdown-toggle" href="#" role="button" id="player1DropDown" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+        Player 1 <b class="caret"></b>
+      </a>
 
-        <ul class="dropdown-menu" aria-labelledby="dropdownMenuLink">
-          <li><a class="dropdown-item" href="#">Player</a></li>
-          <li><a class="dropdown-item" href="#">Random</a></li>
-          <li><a class="dropdown-item" href="#">AI stuff</a></li>
-        </ul>
-      </span>
+      <ul class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+        <li><a class="dropdown-item" onclick="replacePlayer1('Player')">Player</a></li>
+        <li><a class="dropdown-item" onclick="replacePlayer1('Random')">Random</a></li>
+        <li><a class="dropdown-item" onclick="replacePlayer1('AI Stuff')">AI stuff</a></li>
+      </ul>
+    </span>
 
-      &nbsp; vs. &nbsp;
+    &nbsp; vs. &nbsp;
 
-      <!-- Player 2 -->
-      <span class="dropdown">
-        <a class="btn btn-secondary dropdown-toggle" href="#" role="button" id="player2DropDown" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-          Player 2 <b class="caret"></b>
-        </a>
+    <!-- Player 2 -->
+    <span class="dropdown">
+      <a class="btn btn-secondary dropdown-toggle" href="#" role="button" id="player2DropDown" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+        Player 2 <b class="caret"></b>
+      </a>
 
-        <ul class="dropdown-menu" aria-labelledby="dropdownMenuLink">
-          <li><a class="dropdown-item" href="#">Player</a></li>
-          <li><a class="dropdown-item" href="#">Random</a></li>
-          <li><a class="dropdown-item" href="#">AI stuff</a></li>
-        </ul>
-      </span>
-</div>
-<!-- More HTML will be here soon :) -->
+      <ul class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+        <li><a class="dropdown-item" onclick="replacePlayer2('Player')">Player</a></li>
+        <li><a class="dropdown-item" onclick="replacePlayer2('Random')">Random</a></li>
+        <li><a class="dropdown-item" onclick="replacePlayer2('AI Stuff')">AI stuff</a></li>
+      </ul>
+    </span>
+
+  <!-- Play Game button -->
+  <br />
+  <button type="button" class="btn btn-primary" onclick="playGame()">Play Game</button>
+  <div id="test"> Test </div>
+
+  </div>
+
+  <!-- Script to replace player button text with  list -->
+  <script>
+    var player1 = '';
+    var player2 = '';
+
+    function replacePlayer1(option) {
+      document.getElementById("player1DropDown").innerHTML = option + ' <b class="caret"></b>';
+      player1 = option;
+    }
+    function replacePlayer2(option) {
+      document.getElementById("player2DropDown").innerHTML = option + ' <b class="caret"></b>';
+      player2 = option;
+    }
+    function playGame(){
+      document.getElementById("test").innerHTML = 'player1: ' + player1 + ' player2: ' + player2;
+    }
+  </script>
+
 </body>
 </html>
