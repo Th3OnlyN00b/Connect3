@@ -2,6 +2,7 @@ import java.util.*;
 public class Foresight {
 	public ArrayList<Integer> possibleMoves = new ArrayList<>();
 	public ArrayList<Integer> guaranteedMoves = new ArrayList<>();
+
 	public byte goal;
 	public int play() {
 		return play(new C3(4,5));
@@ -17,10 +18,9 @@ public class Foresight {
 		foresight(currBoard);
 		
 		if(guaranteedMoves.size()>0) {
-			return guaranteedMoves.get((int)Math.random()*guaranteedMoves.size());
+			return guaranteedMoves.get((int)(Math.random()*guaranteedMoves.size()));
 		}
 		else if(possibleMoves.size()>0) {
-			System.out.print("HERE!");
 			return possibleMoves.get((int)(Math.random()*possibleMoves.size()));
 		}
 		else {
@@ -38,10 +38,10 @@ public class Foresight {
 			UtilBoard expected = foresightR(child, 2);
 			if(expected.util!=0) {
 				if(expected.util==goal) {
-					guaranteedMoves.add((int)expected.lastCol);
+					guaranteedMoves.add((int)child.lastCol);
 				}
 				else {
-					possibleMoves.remove((Object)expected.lastCol);
+					possibleMoves.remove((Object)child.lastCol);
 				}
 			}
 		}

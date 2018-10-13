@@ -3,17 +3,17 @@ public class tester {
 	public static void main(String[] args) {
 		C3 board = new C3(4, 5);
 
-		/*byte[] f = {1,0,0,0,0};
-		byte[] s = {1,2,0,0,0};
-		byte[] t = {2,1,0,0,0};
-		byte[] f2 = {1,2,0,0,0};
+		byte[] f =  {0,0,0,0,0};
+		byte[] s =  {2,0,0,0,0};
+		byte[] t =  {1,0,0,0,0};
+		byte[] f2 = {1,2,2,0,1};
 		byte[][] b = {f2,t,s,f};
 		
 		board.board = b;
 		
-		board.p1Turn = false;
-		board.lastCol = 0;
-		board.validColumns.remove(0);*/
+		//board.p1Turn = false;
+		board.lastCol = 4;
+		//board.validColumns.remove(0);
 		RowTrie test = new RowTrie();
 		
 		int[] one = {100,234,215,23,12};
@@ -45,16 +45,19 @@ public class tester {
 		Minimax m2 = new Minimax();
 		
 		
-		Foresight f = new Foresight();
-		int col3 = f.play(board);
+		Foresight fo = new Foresight();
+		int col3 = fo.play(board);
 		
 		Random r = new Random();
 		int col4 = r.play(board);
+		Hueristic h = new Hueristic();
+		int col5 = h.play(board);
 		
 		
 		
 		System.out.println("Foresight result: " + col3);
 		System.out.println("Random result: " + col4);
+		System.out.println("H result: " + col5);
 		
 		for(int i=board.board.length-1;i>=0;i--){
             for(int j=0;j<board.board[0].length;j++){

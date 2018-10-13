@@ -10,7 +10,7 @@ public class C3 {
     
 
 
-    public C3(){
+    private C3(){
         this.lastCol = -1;
         this.board =null;
     }
@@ -22,7 +22,6 @@ public class C3 {
     		validColumns.add(i);
     	}
     	
-    	p1Turn = true;
     }
 
     
