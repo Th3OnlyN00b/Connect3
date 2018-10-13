@@ -12,13 +12,57 @@
   <!-- Latest compiled JavaScript -->
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 
+    <!-- Scripts for this page -->
+  <script>
+    var player1 = '';
+    var player2 = '';
+
+    //Replace text on buttons with selected option
+    function replacePlayer1(option, tag) {
+      document.getElementById("player1DropDown").innerHTML = option + ' <b class="caret"></b>';
+      player1 = tag;
+    }
+    function replacePlayer2(option, tag) {
+      document.getElementById("player2DropDown").innerHTML = option + ' <b class="caret"></b>';
+      player2 = tag;
+    }
+
+    //Processes what happens when the Play Game button is pressed
+    function playGame(){
+      console.log('Play Game button is pressed');
+
+      //Make sure both players are chosen
+      if(player1 == '' || player2 == ''){
+        console.log('Unfilled players modal should be showing');
+        $("#playersModal").modal("show");
+      }
+      //Warn if using slow minimax algorithm
+      else if(player1 == 'minimax' || player2 == 'minimax'){
+        console.log('Warning modal should be showing');
+        $("#warningModal").modal("show");
+      }
+      else{
+        sendToServer();
+      }
+    }
+
+    function sendToServer(){
+      console.log("Sending data to server");
+      //TODO
+    }
+  </script>
+
   <!-- Our custom theme CSS -->
+<<<<<<< HEAD
   <style>
   .jumbotron {
     background-color: #ff0066; /* Nice Red */
     color: #ffffff;
   }
 </style>
+=======
+  <link rel="stylesheet" href="style.css">
+>>>>>>> 124fc338136757e699cb54b69cf1fc97c8780bc3
 
 </head>
 
@@ -26,7 +70,14 @@
 
   <div class="text-center">
     <!-- Main Content of Connect 3 Page -->
-    <h1 class = "jumbotron"> Connect 3</h1>
+    <h1 class = "jumbotron">Connect 3</h1>
+
+    <!-- Alert that appears when one of the players is unselected -->
+    <div class="alert alert-danger alert-dismissible fade in">
+      <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+      <strong>Error: </strong> Please select both players.
+    </div>
+
     <h2>Choose your players: </h2>
     <!-- Player 1 -->
     <span class="dropdown">
@@ -35,9 +86,11 @@
       </a>
 
       <ul class="dropdown-menu" aria-labelledby="dropdownMenuLink">
-        <li><a class="dropdown-item" onclick="replacePlayer1('Player')">Player</a></li>
-        <li><a class="dropdown-item" onclick="replacePlayer1('Random')">Random</a></li>
-        <li><a class="dropdown-item" onclick="replacePlayer1('AI Stuff')">AI stuff</a></li>
+        <li><a class="dropdown-item" onclick="replacePlayer1('Human', 'human')">Human</a></li>
+        <li><a class="dropdown-item" onclick="replacePlayer1('Random', 'random')">Random</a></li>
+        <li><a class="dropdown-item" onclick="replacePlayer1('Auto', 'aw')">Auto-Win</a></li>
+        <li><a class="dropdown-item" onclick="replacePlayer1('Minimax', 'minimax')">Minimax</a></li>
+        <li><a class="dropdown-item" onclick="replacePlayer1('Pruned minimax', 'pruned-mm')">Pruned minimax</a></li>
       </ul>
     </span>
 
@@ -50,36 +103,65 @@
       </a>
 
       <ul class="dropdown-menu" aria-labelledby="dropdownMenuLink">
-        <li><a class="dropdown-item" onclick="replacePlayer2('Player')">Player</a></li>
-        <li><a class="dropdown-item" onclick="replacePlayer2('Random')">Random</a></li>
-        <li><a class="dropdown-item" onclick="replacePlayer2('AI Stuff')">AI stuff</a></li>
+        <li><a class="dropdown-item" onclick="replacePlayer2('Human', 'human')">Human</a></li>
+        <li><a class="dropdown-item" onclick="replacePlayer2('Random', 'random')">Random</a></li>
+        <li><a class="dropdown-item" onclick="replacePlayer2('Auto', 'aw')">Auto-Win</a></li>
+        <li><a class="dropdown-item" onclick="replacePlayer2('Minimax', 'minimax')">Minimax</a></li>
+        <li><a class="dropdown-item" onclick="replacePlayer2('Pruned minimax', 'pruned-mm')">Pruned minimax</a></li>
       </ul>
     </span>
 
-  <!-- Play Game button -->
-  <br />
-  <button type="button" class="btn btn-primary" onclick="playGame()">Play Game</button>
-  <div id="test"> Test </div>
+    <!-- Play Game button -->
+    <br />
+    <button type="button" class="btn btn-primary" onclick="playGame()">Play Game</button>
 
   </div>
 
-  <!-- Script to replace player button text with  list -->
-  <script>
-    var player1 = '';
-    var player2 = '';
+  <!-- Warning modal for slow algorithms -->
+  <div class="modal fade" id="warningModal" role="dialog">
+    <div class="modal-dialog">
 
-    function replacePlayer1(option) {
-      document.getElementById("player1DropDown").innerHTML = option + ' <b class="caret"></b>';
-      player1 = option;
-    }
-    function replacePlayer2(option) {
-      document.getElementById("player2DropDown").innerHTML = option + ' <b class="caret"></b>';
-      player2 = option;
-    }
-    function playGame(){
-      document.getElementById("test").innerHTML = 'player1: ' + player1 + ' player2: ' + player2;
-    }
-  </script>
+      <!-- Modal content-->
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal">&times;</button>
+          <h4 class="modal-title">Warning: slow algorithm!</h4>
+        </div>
+        <div class="modal-body">
+          <p>The minimax algorithm tends to be very slow, and moves may take a long time to calculate.
+          Please be patient as the algorithm calculates its moves.</p>
+        </div>
+        <div class="modal-footer">
+          <!-- Proceed must be clicked -->
+          <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+          <button type="button" class="btn btn-warning" data-dismiss="modal" onclick="sendToServer()">Proceed</button>
+        </div>
+      </div>
+      
+    </div>
+  </div>
+
+  <!-- Modal that appears when there are not enough players -->
+  <div class="modal fade" id="playersModal" role="dialog">
+    <div class="modal-dialog">
+
+      <!-- Modal content-->
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal">&times;</button>
+          <h4 class="modal-title">Player(s) not chosen</h4>
+        </div>
+        <div class="modal-body">
+          <p>In order to start a game, you must choose both players.</p>
+        </div>
+        <div class="modal-footer">
+          <!-- Button to dismiss modal -->
+          <button type="button" class="btn btn-primary" data-dismiss="modal">OK</button>
+        </div>
+      </div>
+      
+    </div>
+  </div>
 
 </body>
 </html>
