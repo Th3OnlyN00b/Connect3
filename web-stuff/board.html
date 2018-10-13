@@ -12,13 +12,12 @@
   <!-- Latest compiled JavaScript -->
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 
+  <!-- Scripts go here -->
+  <script>
+  </script>
+
   <!-- Our custom theme CSS -->
-  <style>
-  .jumbotron { 
-    background-color: #ff0066; /* Nice Red */
-    color: #ffffff;
-  }
-</style>
+  <link rel="stylesheet" href="style.css">
 
 </head>
 
@@ -28,61 +27,6 @@
     <!-- Main Content of Connect 3 Page -->
     <h1 class = "jumbotron"> Connect 3</h1>
     <h2>Choose your players: </h2>
-    <!-- Player 1 -->
-    <span class="dropdown">
-      <a class="btn btn-secondary dropdown-toggle" href="#" role="button" id="player1DropDown" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-        Player 1 <b class="caret"></b>
-      </a>
-
-      <ul class="dropdown-menu" aria-labelledby="dropdownMenuLink">
-        <li><a class="dropdown-item" onclick="replacePlayer1('Human', 'human')">Human</a></li>
-        <li><a class="dropdown-item" onclick="replacePlayer1('Random', 'random')">Random</a></li>
-        <li><a class="dropdown-item" onclick="replacePlayer1('Auto', 'aw')">Auto-Win</a></li>
-        <li><a class="dropdown-item" onclick="replacePlayer1('Minimax', 'minimax')">Minimax</a></li>
-        <li><a class="dropdown-item" onclick="replacePlayer1('Pruned minimax', 'pruned-mm')">Pruned minimax</a></li>
-      </ul>
-    </span>
-
-    &nbsp; vs. &nbsp;
-
-    <!-- Player 2 -->
-    <span class="dropdown">
-      <a class="btn btn-secondary dropdown-toggle" href="#" role="button" id="player2DropDown" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-        Player 2 <b class="caret"></b>
-      </a>
-
-      <ul class="dropdown-menu" aria-labelledby="dropdownMenuLink">
-        <li><a class="dropdown-item" onclick="replacePlayer2('Human', 'human')">Human</a></li>
-        <li><a class="dropdown-item" onclick="replacePlayer2('Random', 'random')">Random</a></li>
-        <li><a class="dropdown-item" onclick="replacePlayer2('Auto', 'aw')">Auto-Win</a></li>
-        <li><a class="dropdown-item" onclick="replacePlayer2('Minimax', 'minimax')">Minimax</a></li>
-        <li><a class="dropdown-item" onclick="replacePlayer2('Pruned minimax', 'pruned-mm')">Pruned minimax</a></li>
-      </ul>
-    </span>
-
-  <!-- Play Game button -->
-  <br />
-  <button type="button" class="btn btn-primary" onclick="playGame()">Play Game</button>
-
-  </div>
-
-  <!-- Script to replace player button text with  list -->
-  <script>
-    var player1 = '';
-    var player2 = '';
-
-    function replacePlayer1(option, tag) {
-      document.getElementById("player1DropDown").innerHTML = option + ' <b class="caret"></b>';
-      player1 = tag;
-    }
-    function replacePlayer2(option, tag) {
-      document.getElementById("player2DropDown").innerHTML = option + ' <b class="caret"></b>';
-      player2 = tag;
-    }
-    function playGame(){
-      //TODO: send this to the server
-    }
-  </script>
 
 </body>
 </html>

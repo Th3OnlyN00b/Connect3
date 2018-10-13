@@ -12,16 +12,48 @@
   <!-- Latest compiled JavaScript -->
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 
+    <!-- Scripts for this page -->
+  <script>
+    var player1 = '';
+    var player2 = '';
+
+    //Replace text on buttons with selected option
+    function replacePlayer1(option, tag) {
+      document.getElementById("player1DropDown").innerHTML = option + ' <b class="caret"></b>';
+      player1 = tag;
+    }
+    function replacePlayer2(option, tag) {
+      document.getElementById("player2DropDown").innerHTML = option + ' <b class="caret"></b>';
+      player2 = tag;
+    }
+
+    //Processes what happens when the Play Game button is pressed
+    function playGame(){
+      console.log('Play Game button is pressed');
+
+      //Make sure both players are chosen
+      if(player1 == '' || player2 == ''){
+        console.log('Unfilled players modal should be showing');
+        $("#playersModal").modal("show");
+      }
+      //Warn if using slow minimax algorithm
+      else if(player1 == 'minimax' || player2 == 'minimax'){
+        console.log('Warning modal should be showing');
+        $("#warningModal").modal("show");
+      }
+      else{
+        sendToServer();
+      }
+    }
+
+    function sendToServer(){
+      console.log("Sending data to server");
+      //TODO
+    }
+  </script>
+
   <!-- Our custom theme CSS -->
-  <style>
-  .jumbotron { 
-    background-color: #ff0066; /* Nice Red */
-    color: #ffffff;
-  }
-  .alert{
-    display: none;
-  }
-</style>
+  <link rel="stylesheet" href="style.css">
 
 </head>
 
@@ -121,46 +153,6 @@
       
     </div>
   </div>
-
-  <!-- Script to replace player button text with  list -->
-  <script>
-    var player1 = '';
-    var player2 = '';
-
-    //Replace text on buttons with selected option
-    function replacePlayer1(option, tag) {
-      document.getElementById("player1DropDown").innerHTML = option + ' <b class="caret"></b>';
-      player1 = tag;
-    }
-    function replacePlayer2(option, tag) {
-      document.getElementById("player2DropDown").innerHTML = option + ' <b class="caret"></b>';
-      player2 = tag;
-    }
-
-    //Processes what happens when the Play Game button is pressed
-    function playGame(){
-      console.log('Play Game button is pressed');
-
-      //Make sure both players are chosen
-      if(player1 == '' || player2 == ''){
-        console.log('Unfilled players modal should be showing');
-        $("#playersModal").modal("show");
-      }
-      //Warn if using slow minimax algorithm
-      else if(player1 == 'minimax' || player2 == 'minimax'){
-        console.log('Warning modal should be showing');
-        $("#warningModal").modal("show");
-      }
-      else{
-        sendToServer();
-      }
-    }
-
-    function sendToServer(){
-      console.log("Sending data to server");
-      //TODO
-    }
-  </script>
 
 </body>
 </html>
