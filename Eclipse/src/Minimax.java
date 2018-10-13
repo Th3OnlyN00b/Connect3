@@ -2,7 +2,11 @@ import java.util.*;
 
 public class Minimax implements Connect3{
 	RowTrie loaded = new RowTrie();
+	int foundn = 0;
 	
+	public int play() {
+		return minimax(new C3(4,5)).lastCol;
+	}
 	
 	public int play(C3 currBoard) {		
 		return minimax(currBoard).lastCol;
@@ -14,7 +18,8 @@ public class Minimax implements Connect3{
 		int[] encR = state.encodeRows();
 		UtilBoard found = loaded.searchNode(encR);
 		if(found!=null) {
-			//System.out.println("Found!!!! Col: " + found.lastCol + " Util: " + found.util + " P1 turn?: "+ state.p1Turn);
+			foundn++;
+			if(foundn%100000==0) {System.out.println("Found!!!! Num: "+foundn +"Col: " + found.lastCol + " Util: " + found.util + " P1 turn?: "+ state.p1Turn);}
 			return found;}
 		
         switch(state.winner) {
@@ -44,8 +49,6 @@ public class Minimax implements Connect3{
                     } //Can't do better than guaranteed 1, return!!
                 else if(util.util==0&&bestUtility.util!=1){
                 	bestUtility = new UtilBoard(child.lastCol,0);
-                    loaded.insert(encR, bestUtility);
-                    return bestUtility;
                 	}
             }
            // System.out.println("Plater 1 Turn!!!" + bestUtility.lastCol);
@@ -56,7 +59,10 @@ public class Minimax implements Connect3{
             for(C3 child: children){
                 UtilBoard util = minimax(child);
                 if(util.util==-1){bestUtility = new UtilBoard(child.lastCol,-1);} //Can't do better than guaranteed -1, return
-                else if(util.util==0&&bestUtility.util!=-1){bestUtility = new UtilBoard(child.lastCol,0);}
+                else if(util.util==0&&bestUtility.util!=-1){
+                	bestUtility = new UtilBoard(child.lastCol,0);
+                	loaded.insert(encR, bestUtility);
+                    return bestUtility;}
             }
            // System.out.println("Plater 2 Turn!!!" + bestUtility.lastCol);
         }
