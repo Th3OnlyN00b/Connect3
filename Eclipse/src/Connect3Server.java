@@ -1,7 +1,9 @@
 import java.util.*;
 import java.io.*;
-import java.net.ServerSocket;
-import java.net.Socket;
+import java.net.*;
+import org.java_websocket.WebSocket;
+import org.java_websocket.handshake.ClientHandshake;
+import org.java_websocket.server.WebSocketServer;
 
 
 public class Connect3Server {
@@ -9,13 +11,17 @@ public class Connect3Server {
 	//Opening welcome, mainly for debugging purposes.
 	public static void main(String[] args) {
 		System.out.println("Welcome to connect 3-- Just like connect 4, but worse.");
-		connectToServer();
+		new WebsocketServer().start();
+		System.out.println("done");
+		
+		//connectToServer();
 	}
 	
 	
 	public static void connectToServer() {
 		//used to check status of second port
-		boolean web2open = false;
+		boolean web1Human = false;
+		boolean web2Human = false;
 		//create new server socket
 	    try(ServerSocket serverSocketOne = new ServerSocket(9990)) {
 	    	//wait for connection
@@ -90,6 +96,10 @@ public class Connect3Server {
         		driverOOS.writeObject(selection1);
         		driverOOS.writeObject(selection2);
         		
+        		//define player 1
+        		if(selection1.equals("human")) {
+        			web1Human = true;
+        		}
         		//Wait for response from driver machine
         		String ready1 = "";
         		try{
@@ -130,12 +140,167 @@ public class Connect3Server {
 	        		catch(Exception e) {
 	        			System.out.println("Web 2 setup failed");
 	        			e.printStackTrace();
+	        			System.exit(8);
 	        		}
-	        		web2open = true;
+	        		web2Human = true;
     			}
 
-        		//Play the game
-        		
+    			
+    			
+    			//---------------------
+        		//    Play the game
+    			//---------------------
+    			
+    			
+    			System.out.println("beginning game");
+    			boolean gameOver = false;
+    			int turn = 0;
+    			while(!gameOver) {
+    				//check turn
+    				if(Math.abs(turn) == 0) { //player 1
+	    				//human input handled differently
+	    				if(web1Human) {
+	    					//get updated board from driver
+	    					byte[][] board = null;
+	    					try {
+	    						board = (byte[][])driverOIS.readObject();
+	    					}
+	    					catch(Exception e) {
+	    						System.out.println("Error getting new board state from driver for player 1");
+	    						e.printStackTrace();
+	    						System.exit(9);
+	    					}
+	    					//send board to w1
+	    					w1OOS.writeObject(board);
+	    					//get valid moves from driver
+	    					Set<Integer> valids = null;
+	    					try {
+	    						valids = (Set<Integer>)driverOIS.readObject();
+	    					}
+	    					catch(Exception e){
+	    						System.out.println("Error getting valids p1");
+	    						e.printStackTrace();
+	    						System.exit(10);
+	    					}
+	    					//send valids to w1
+	    					w1OOS.writeObject(valids);
+	    					//get selection from w1
+	    					Integer selection = null;
+	    					try {
+	    						selection = (Integer)w1OIS.readObject();
+	    					}
+	    					catch(Exception e) {
+	    						System.out.println("Error taking move from web1");
+	    						e.printStackTrace();
+	    						System.exit(11);
+	    					}
+	    					//send selection from w1 to driver
+	    					driverOOS.writeObject(selection);
+	    					//get updated board from driver
+	    					board = null;
+	    					try {
+	    						board = (byte[][])driverOIS.readObject();
+	    					}
+	    					catch(Exception e) {
+	    						System.out.println("Error getting new board state from driver for player 1");
+	    						e.printStackTrace();
+	    						System.exit(12);
+	    					}
+	    					//send board to w1
+	    					w1OOS.writeObject(board);
+	    				}
+	    				else {
+	    					//get updated board from driver
+	    					byte[][] board = null;
+	    					try {
+	    						board = (byte[][])driverOIS.readObject();
+	    					}
+	    					catch(Exception e) {
+	    						System.out.println("Error getting new board state from driver for player 1");
+	    						e.printStackTrace();
+	    						System.exit(13);
+	    					}
+	    					//send board to w1
+	    					w1OOS.writeObject(board);
+	    				} //end player1 move
+    				}
+    				else { //player 2 move
+    					if(web2Human) {
+	    					//get updated board from driver
+	    					byte[][] board = null;
+	    					try {
+	    						board = (byte[][])driverOIS.readObject();
+	    					}
+	    					catch(Exception e) {
+	    						System.out.println("Error getting new board state from driver for player 2");
+	    						e.printStackTrace();
+	    						System.exit(14);
+	    					}
+	    					//send board to w2
+	    					w2OOS.writeObject(board);
+	    					//get valid moves from driver
+	    					Set<Integer> valids = null;
+	    					try {
+	    						valids = (Set<Integer>)driverOIS.readObject();
+	    					}
+	    					catch(Exception e){
+	    						System.out.println("Error getting valids p2");
+	    						e.printStackTrace();
+	    						System.exit(15);
+	    					}
+	    					//send valids to w2
+	    					w2OOS.writeObject(valids);
+	    					//get selection from w2
+	    					Integer selection = null;
+	    					try {
+	    						selection = (Integer)w2OIS.readObject();
+	    					}
+	    					catch(Exception e) {
+	    						System.out.println("Error taking move from web2");
+	    						e.printStackTrace();
+	    						System.exit(16);
+	    					}
+	    					//send selection from w2 to driver
+	    					driverOOS.writeObject(selection);
+	    					//get updated board from driver
+	    					board = null;
+	    					try {
+	    						board = (byte[][])driverOIS.readObject();
+	    					}
+	    					catch(Exception e) {
+	    						System.out.println("Error getting new board state from driver for player 2");
+	    						e.printStackTrace();
+	    						System.exit(17);
+	    					}
+	    					//send board to w2
+	    					w2OOS.writeObject(board);
+	    				}
+	    				else {
+	    					//get updated board from driver
+	    					byte[][] board = null;
+	    					try {
+	    						board = (byte[][])driverOIS.readObject();
+	    					}
+	    					catch(Exception e) {
+	    						System.out.println("Error getting new board state from driver for player 2");
+	    						e.printStackTrace();
+	    						System.exit(18);
+	    					}
+	    					//send board to w1
+	    					w1OOS.writeObject(board);
+	    				} //end player 2 move
+    				} //end player move
+    				
+    				//check to see if game is over
+    				try {
+    					gameOver = (boolean)driverOIS.readObject();
+    				}
+    				catch(Exception e) {
+    					System.out.println("Error checking gameover state");
+    					e.printStackTrace();
+    					System.exit(19);
+    				}
+    			}
         	}
 	        scannerOne.close();
 	    } 
