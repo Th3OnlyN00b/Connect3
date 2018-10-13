@@ -1,4 +1,16 @@
-.jumbotron { 
+.jumbotron {
     background-color: #ff0066; /* Nice Red */
     color: #ffffff;
+}
+h1 {
+  background-color: #ff0066;
+  color: #ffffff;
+}
+.section {
+  color: #ff0066;
+  font-weight:bold;
+  padding-left: 10px;
+}
+li {
+  font-weight:lighter;
 }
