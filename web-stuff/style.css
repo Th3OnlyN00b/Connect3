@@ -1,12 +1,4 @@
-h1 {
-  color: #ffffff;
-  background-color: #ff0066;
-  text-align: center;
-}
-h2 {
-  color: #ff0066;
-  font-weight: bold;
-  /*text-decoration: underline;*/
-  /*Makes it so underline does not stop under j,p,q and y*/
-  /*text-decoration-skip-ink: none;*/
+.jumbotron { 
+    background-color: #ff0066; /* Nice Red */
+    color: #ffffff;
 }
