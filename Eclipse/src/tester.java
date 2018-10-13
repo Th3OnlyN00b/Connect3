@@ -1,7 +1,7 @@
 
 public class tester {
 	public static void main(String[] args) {
-		C3 board = new C3(6,7);
+		C3 board = new C3(4, 5);
 
 		/*byte[] f = {1,0,0,0,0};
 		byte[] s = {1,2,0,0,0};
@@ -43,6 +43,19 @@ public class tester {
 		
 		PrunedMinimax m1 = new PrunedMinimax();
 		Minimax m2 = new Minimax();
+		
+		
+		Foresight f = new Foresight();
+		int col3 = f.play(board);
+		
+		Random r = new Random();
+		int col4 = r.play(board);
+		
+		
+		
+		System.out.println("Foresight result: " + col3);
+		System.out.println("Random result: " + col4);
+		
 		for(int i=board.board.length-1;i>=0;i--){
             for(int j=0;j<board.board[0].length;j++){
                 System.out.print(board.board[i][j]);
@@ -50,7 +63,7 @@ public class tester {
             System.out.println();
         }
 		//int col1 = m1.play(board);
-		//System.out.println("Pruned output: " + col1);
+		//.out.println("Pruned output: " + col1);
 		
 		System.out.println("Starting normie minimax");
 		

@@ -2,6 +2,10 @@ import java.util.ArrayList;
 
 public class PrunedMinimax implements Connect3{
 	
+	public int play() {
+		return minimax(new C3(4,5)).lastCol;
+	}
+	
 	public int play(C3 currBoard) {		
 		return minimax(currBoard).lastCol;
 	}

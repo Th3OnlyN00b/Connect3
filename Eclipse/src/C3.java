@@ -8,6 +8,24 @@ public class C3 {
     int lastCol = -1;
     
     
+
+
+    public C3(){
+        this.lastCol = -1;
+        this.board =null;
+    }
+    
+    public C3(int rows, int cols) {
+    	this.board = new byte[rows][cols];
+    	this.validColumns = new HashSet<Integer>();
+    	for(int i=0;i<cols;i++) {
+    		validColumns.add(i);
+    	}
+    	
+    	p1Turn = true;
+    }
+
+    
     
     public int encodeRow(int row){
     	
@@ -29,17 +47,6 @@ public class C3 {
     	
     	return ret;
     }
-    
-    public C3(int rows, int cols) {
-    	this.board = new byte[rows][cols];
-    	this.validColumns = new HashSet<Integer>();
-    	for(int i=0;i<cols;i++) {
-    		validColumns.add(i);
-    	}
-    	
-    	p1Turn = true;
-    }
-
     
     public boolean victory(int x, int y){ //Check to see if board is in victory state after each place, only checks spaces around most recent place
         int target = board[x][y];
@@ -127,11 +134,6 @@ public class C3 {
         return false;
     }
 
-    public C3(){
-        this.lastCol = -1;
-        this.board =null;
-    }
-
     public C3 cloner(){ //Create new C3 instance for each place
         C3 clone = new C3();
         clone.board = new byte[this.board.length][this.board[0].length];
@@ -184,6 +186,16 @@ public class C3 {
         }
 
         return childs;
+    }
+    
+    public String toJSString() {
+    	String retStr = "d";
+    	for(int i = 0; i < board.length; i++) {
+    		for(int j = 0; j < board[0].length; j++) {
+    			retStr += board[i][j];
+    		}
+    	}
+    	return retStr;
     }
 
 
