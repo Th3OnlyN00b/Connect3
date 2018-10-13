@@ -9,11 +9,10 @@
   <script>
     //Javascript will be here soon :)
     //Connect to the server
-    var server_connection = new Socket('ws://18.224.19.21');
-    //Get input
-    //server_connection.onopen = function(){
-      //server_connection.listen();
-      //server_connection.read();
+    var server_connection = new Socket('ws://18.224.19.21:9990');
+    server_connection.onopen = function(){
+      server_connection.listen();
+      server_connection.read();
     //}
     //Log info into website
     //Send output
