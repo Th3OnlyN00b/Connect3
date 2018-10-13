@@ -21,7 +21,6 @@ public class Foresight {
 			return guaranteedMoves.get((int)(Math.random()*guaranteedMoves.size()));
 		}
 		else if(possibleMoves.size()>0) {
-			System.out.print("HERE!");
 			return possibleMoves.get((int)(Math.random()*possibleMoves.size()));
 		}
 		else {
@@ -39,7 +38,6 @@ public class Foresight {
 			UtilBoard expected = foresightR(child, 2);
 			if(expected.util!=0) {
 				if(expected.util==goal) {
-					System.out.println("expectedUtil: " + expected.util + " Goal: " + goal+" Guaranteed: "+ child.lastCol);
 					guaranteedMoves.add((int)child.lastCol);
 				}
 				else {
@@ -55,10 +53,8 @@ public class Foresight {
 		
 		switch(state.winner) {
         case 1: 
-        	System.out.println("Won putting in: " + state.lastCol);
         	return new UtilBoard(state.lastCol, 1);
         case 2:
-        	System.out.println("Col win: "+state.lastCol);
         	return new UtilBoard(state.lastCol, -1);
         }
 		

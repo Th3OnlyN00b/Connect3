@@ -45,7 +45,6 @@ public class Minimax implements Connect3{
                     
                 	bestUtility = new UtilBoard(child.lastCol,1);
                     loaded.insert(encR, bestUtility);
-                    return bestUtility;
                     } //Can't do better than guaranteed 1, return!!
                 else if(util.util==0&&bestUtility.util!=1){
                 	bestUtility = new UtilBoard(child.lastCol,0);
@@ -62,7 +61,7 @@ public class Minimax implements Connect3{
                 else if(util.util==0&&bestUtility.util!=-1){
                 	bestUtility = new UtilBoard(child.lastCol,0);
                 	loaded.insert(encR, bestUtility);
-                    return bestUtility;}
+                    }
             }
            // System.out.println("Plater 2 Turn!!!" + bestUtility.lastCol);
         }
