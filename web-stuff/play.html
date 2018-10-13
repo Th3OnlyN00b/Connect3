@@ -35,9 +35,11 @@
       </a>
 
       <ul class="dropdown-menu" aria-labelledby="dropdownMenuLink">
-        <li><a class="dropdown-item" onclick="replacePlayer1('Player')">Player</a></li>
-        <li><a class="dropdown-item" onclick="replacePlayer1('Random')">Random</a></li>
-        <li><a class="dropdown-item" onclick="replacePlayer1('AI Stuff')">AI stuff</a></li>
+        <li><a class="dropdown-item" onclick="replacePlayer1('Human', 'human')">Human</a></li>
+        <li><a class="dropdown-item" onclick="replacePlayer1('Random', 'random')">Random</a></li>
+        <li><a class="dropdown-item" onclick="replacePlayer1('Auto', 'aw')">Auto-Win</a></li>
+        <li><a class="dropdown-item" onclick="replacePlayer1('Minimax', 'minimax')">Minimax</a></li>
+        <li><a class="dropdown-item" onclick="replacePlayer1('Pruned minimax', 'pruned-mm')">Pruned minimax</a></li>
       </ul>
     </span>
 
@@ -50,16 +52,17 @@
       </a>
 
       <ul class="dropdown-menu" aria-labelledby="dropdownMenuLink">
-        <li><a class="dropdown-item" onclick="replacePlayer2('Player')">Player</a></li>
-        <li><a class="dropdown-item" onclick="replacePlayer2('Random')">Random</a></li>
-        <li><a class="dropdown-item" onclick="replacePlayer2('AI Stuff')">AI stuff</a></li>
+        <li><a class="dropdown-item" onclick="replacePlayer2('Human', 'human')">Human</a></li>
+        <li><a class="dropdown-item" onclick="replacePlayer2('Random', 'random')">Random</a></li>
+        <li><a class="dropdown-item" onclick="replacePlayer1('Auto', 'aw')">Auto-Win</a></li>
+        <li><a class="dropdown-item" onclick="replacePlayer1('Minimax', 'minimax')">Minimax</a></li>
+        <li><a class="dropdown-item" onclick="replacePlayer1('Pruned minimax', 'pruned-mm')">Pruned minimax</a></li>
       </ul>
     </span>
 
   <!-- Play Game button -->
   <br />
   <button type="button" class="btn btn-primary" onclick="playGame()">Play Game</button>
-  <div id="test"> Test </div>
 
   </div>
 
@@ -68,16 +71,16 @@
     var player1 = '';
     var player2 = '';
 
-    function replacePlayer1(option) {
+    function replacePlayer1(option, tag) {
       document.getElementById("player1DropDown").innerHTML = option + ' <b class="caret"></b>';
-      player1 = option;
+      player1 = tag;
     }
-    function replacePlayer2(option) {
+    function replacePlayer2(option, tag) {
       document.getElementById("player2DropDown").innerHTML = option + ' <b class="caret"></b>';
-      player2 = option;
+      player2 = tag;
     }
     function playGame(){
-      document.getElementById("test").innerHTML = 'player1: ' + player1 + ' player2: ' + player2;
+      //TODO: send this to the server
     }
   </script>
 
