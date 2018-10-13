@@ -7,32 +7,58 @@
   <!-- Include CSS -->
   <link rel="stylesheet" href="style.css">
   <script type = "text/javascript">
-  function connect(){
-    //Javascript will be here soon :)
-    //Connect to the server
-    //Maybe need to change below parameter
-    var server_connection = new WebSocket("wss://echo.websocket.org/");
-      server_connection.onopen = function(){
-      //Listen for input
-        server_connection.onmessage(evt){
-          //String
-          if(typeOf evt.data == String){
+  var connection = new WebSocket('ws://590e2517.ngrok.io');
 
-          //Number
-          }else if(Number(evt.data) != NaN){
+    connection.onopen = function () {
+      console.log('Connected!');
+    };
 
-          //IDK?
-          }else if(typeOf evt.data == bytearrays[][]){
+    // Log errors
+    connection.onerror = function (error) {
+      console.log('WebSocket Error ' + error);
+    };
+
+    // Log messages from the server
+    connection.onmessage = function (e) {
+      console.log('Server: ' + e.data);
+      var string_data = e.data;
+      var first_char = string_data.charAt(0);
+      if(string_data.charAt(0) == 'd'){
+
+      }else if(string_data.charAt(0) == 'n'){
+
+      }
+      var char_array = new Array(4);
+      for(int i = 0;i<string_data;i++){
+        char_array[i] = new Array(5);
+      }
+      int j = 0;
+      for(int i = 0;i<string_data;i++){
+        char_array[i][j] = string_data[i];
+        if(i > 3){
+          i = i%4;
+        }
+        if(j > 4){
+          j = j%5;
+        }
+        j+=1;
+      }
+      for(int x = 0;x<char_array.length();x++){
+        for(int y = 0; y < x.length();y++){
+          if(char_array[x][y] == 'x'){
+
+          }else if(char_array[x][y] == 'o'){
+
+          }else if(char_array[x][y] == '.'){
 
           }
         }
       }
-    }
     //Log info into website
 
     //Send output
       //Say server_connection.send(MESSAGE)
-
+    };
   </script>
 </head>
 <body>
@@ -54,6 +80,7 @@
   </ul>
   <hr>
   <center>
+  <!--
   <a class = "btn btn-secondary btn-lg btn-block" href = "play.html" role = "button"> Play </a>
   </center>
 </body>

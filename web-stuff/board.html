@@ -15,7 +15,7 @@
   <!-- Scripts go here -->
   <script>
             //Initialize proper grid size
-        $(document).ready(draw);
+            $(document).ready(draw);
 
         //Make sure that the board scales upon the page being resized
         $(window).on("resize", draw);
@@ -27,63 +27,134 @@
           //Scale grid outer borders
           grid.style.width = ($(window).width() / 2) + "px";
           grid.style.height = (grid.style.width.slice(0, grid.style.width.length-2) * 0.8) + "px";
+
+          //Make each grid cell 20px
+          var cells = document.getElementsByTagName("td");
+          for(var i = 0; i < cells.length; i++){
+            cells[i].style.width = "20%";
+          }
         }
-  </script>
 
-    <!-- Our custom theme CSS -->
-    <link rel="stylesheet" href="style.css">
+        function changeCellColor(cell){
+          var cellBG = document.getElementsByTagName("td")[cell].style.backgroundColor;
+          if(cellBG == "") document.getElementsByTagName("td")[cell].style.backgroundColor = "#969696";
+          else if(cellBG == "rgb(150, 150, 150)") document.getElementsByTagName("td")[cell].style.backgroundColor = "#ff0066";
+          else document.getElementsByTagName("td")[cell].style.backgroundColor = "";
+        }
+        var connection = new WebSocket('ws://590e2517.ngrok.io');
 
-    <!-- TODO: move to general CSS document -->
-    <style type="text/css">
+          connection.onopen = function () {
+            console.log('Connected!');
+          };
+
+          // Log errors
+          connection.onerror = function (error) {
+            console.log('WebSocket Error ' + error);
+          };
+
+          // Log messages from the server
+          connection.onmessage = function (e) {
+            console.log('Server: ' + e.data);
+            var string_data = e.data;
+            var first_char = string_data.charAt(0);
+            if(string_data.charAt(0) == 'd'){
+
+            }else if(string_data.charAt(0) == 'n'){
+
+            }
+            var char_array = new Array(4);
+            for(int i = 0;i<string_data;i++){
+              char_array[i] = new Array(5);
+            }
+            int j = 0;
+            for(int i = 0;i<string_data;i++){
+              char_array[i][j] = string_data[i];
+              if(i > 3){
+                i = i%4;
+              }
+              if(j > 4){
+                j = j%5;
+              }
+              j+=1;
+            }
+            for(int x = 0;x<char_array.length();x++){
+              for(int y = 0; y < x.length();y++){
+                if(char_array[x][y] == 'x'){
+
+                }else if(char_array[x][y] == 'o'){
+
+                }else if(char_array[x][y] == '.'){
+
+                }
+              }
+            }
+          };
+        </script>
+
+      <!-- Our custom theme CSS -->
+      <link rel="stylesheet" href="style.css">
+
+      <!-- TODO: move to general CSS document -->
+      <style type="text/css">
+      td a {
+        display:block;
+        text-decoration: none;
+        text-align: center;
+        vertical-align: middle;
+        height: 100%;
+        width: 100%;
+      }
+      td a:hover {
+        text-decoration: none;
+      }
     </style>
 
-</head>
+  </head>
 
-<body>
+  <body>
 
-  <div class="text-center">
-    <!-- Main Content of Connect 3 Page -->
-    <h1 class = "jumbotron">Connect 3</h1>
+    <div class="text-center">
+      <!-- Main Content of Connect 3 Page -->
+      <h1 class = "jumbotron">Connect 3</h1>
 
-    <!-- Connect 3 grid -->
-        <table id="grid" border="2" align="center" width="400px">
-          <tr>
-            <td>.</td>
-            <td>.</td>
-            <td>.</td>
-            <td>.</td>
-            <td>.</td>
-          </tr>
-          <tr>
-            <td>.</td>
-            <td>.</td>
-            <td>.</td>
-            <td>.</td>
-            <td>.</td>
-          </tr>
-          <tr>
-            <td>.</td>
-            <td>.</td>
-            <td>.</td>
-            <td>.</td>
-            <td>.</td>
-          </tr>
-          <tr>
-            <td>.</td>
-            <td>.</td>
-            <td>.</td>
-            <td>.</td>
-            <td>.</td>
-          </tr>
-        </table>
+      <!-- Connect 3 grid -->
+      <table id="grid" border="2" align="center" width="400px">
+        <tr>
+          <td><a href="#" id = "0" onclick="changeCellColor(this.id)">&nbsp;</a></td>
+          <td><a href="#" id = "1" onclick="changeCellColor(this.id)">&nbsp;</a></td>
+          <td><a href="#" id = "2" onclick="changeCellColor(this.id)">&nbsp;</a></td>
+          <td><a href="#" id = "3" onclick="changeCellColor(this.id)">&nbsp;</a></td>
+          <td><a href="#" id = "4" onclick="changeCellColor(this.id)">&nbsp;</a></td>
+        </tr>
+        <tr>
+          <td><a href="#" id = "5" onclick="changeCellColor(this.id)">&nbsp;</a></td>
+          <td><a href="#" id = "6" onclick="changeCellColor(this.id)">&nbsp;</a></td>
+          <td><a href="#" id = "7" onclick="changeCellColor(this.id)">&nbsp;</a></td>
+          <td><a href="#" id = "8" onclick="changeCellColor(this.id)">&nbsp;</a></td>
+          <td><a href="#" id = "9" onclick="changeCellColor(this.id)">&nbsp;</a></td>
+        </tr>
+        <tr>
+          <td><a href="#" id = "10" onclick="changeCellColor(this.id)">&nbsp;</a></td>
+          <td><a href="#" id = "11" onclick="changeCellColor(this.id)">&nbsp;</a></td>
+          <td><a href="#" id = "12" onclick="changeCellColor(this.id)">&nbsp;</a></td>
+          <td><a href="#" id = "13" onclick="changeCellColor(this.id)">&nbsp;</a></td>
+          <td><a href="#" id = "14" onclick="changeCellColor(this.id)">&nbsp;</a></td>
+        </tr>
+        <tr>
+          <td><a href="#" id = "15" onclick="changeCellColor(this.id)">&nbsp;</a></td>
+          <td><a href="#" id = "16" onclick="changeCellColor(this.id)">&nbsp;</a></td>
+          <td><a href="#" id = "17" onclick="changeCellColor(this.id)">&nbsp;</a></td>
+          <td><a href="#" id = "18" onclick="changeCellColor(this.id)">&nbsp;</a></td>
+          <td><a href="#" id = "19" onclick="changeCellColor(this.id)">&nbsp;</a></td>
+        </tr>
+      </table>
 
-    <br />
+      <br />
 
-    <!-- Players -->
-    <div id="players">
-      <h3 style="display:inline;">Player 1</h3> 
-      &nbsp;&nbsp;&nbsp;&nbsp;vs.&nbsp;&nbsp;&nbsp;&nbsp;  
-      <h3 style="display:inline;">Player 2</h3></div>
-
-  </body>
-  </html>
+      <!-- Players -->
+      <div id="players">
+        <h3 style="display:inline; id="p1">Player 1</h3>
+        &nbsp;&nbsp;&nbsp;&nbsp;vs.&nbsp;&nbsp;&nbsp;&nbsp;
+        <h3 style="display:inline; id="p2">Player 2</h3></div>
+      </body>
+      </html>
