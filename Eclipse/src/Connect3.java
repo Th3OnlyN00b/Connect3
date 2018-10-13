@@ -1,7 +1,8 @@
 
 public interface Connect3 {
 
-	public int play();
+	public byte[][] board = new byte[4][5];
 	
+	public ByteTuple play();
 	
 }

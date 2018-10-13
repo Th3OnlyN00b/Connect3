@@ -33,26 +33,23 @@ public class Connect3Main {
 		//create new server socket
 	    try(ServerSocket serverSocketOne = new ServerSocket(9990)) {
 	    	//wait for connection
-	    	
 	    	System.out.println("Waiting for player one to connect...");
 	        Socket connectionSocketOne = serverSocketOne.accept();
 	        System.out.println("Player one has connected."); 
 	        System.out.println("Setting up IO connections for player one...");
-	        InputStream inputToServer = connectionSocketOne.getInputStream();
+	        InputStream hostInput = connectionSocketOne.getInputStream();
+	    	ObjectInputStream ois = new ObjectInputStream(hostInput);
 	        OutputStream outputFromServer = connectionSocketOne.getOutputStream();
 	        System.out.println("IO done. Building Scanner...");
-	        Scanner scannerOne = new Scanner(inputToServer, "UTF-8");
+	        Scanner scannerOne = new Scanner(hostInput, "UTF-8");
 	        System.out.println("Scanner done. Building printer...");
 	        PrintWriter serverPrintOne = new PrintWriter(new OutputStreamWriter(outputFromServer, "UTF-8"), true);
         	System.out.println("Printer done.\n\n");
         	
-        	serverPrintOne.println("Welcome, player one.\n\n");
+        	serverPrintOne.println("Welcome, host.\n\n");
 	        
         	
-	        System.out.println("Asking if player one wants to play an AI or another player...");
-	        serverPrintOne.println("Would you like to play against a human or AI?");
-	        String playerAIChoice = scannerOne.nextLine();
-	        Connect3 c3Game3;
+	        Connect3 c3Game;
 	        
         	boolean again = true;
         	while(again) {
