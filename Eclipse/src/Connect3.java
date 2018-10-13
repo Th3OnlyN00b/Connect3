@@ -1,4 +1,4 @@
 
 public interface Connect3 {
-	public int play(BoardState b);
+	public int play(C3 b);
 }

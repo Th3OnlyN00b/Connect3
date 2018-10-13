@@ -1,45 +1,66 @@
 import java.util.*;
 
-public class Minimax{
+public class Minimax implements Connect3{
+	RowTrie loaded = new RowTrie();
 	
-	public static byte play(BoardState currBoard) {		
-		return minimax(currBoard).col;
+	
+	public int play(C3 currBoard) {		
+		return minimax(currBoard).lastCol;
 	}
 	
-	public static UtilCol minimax(BoardState currBoard){
-		switch(currBoard.winner) {
-			case 1:
-				return new UtilCol((byte)1,currBoard.lastCol);
-			case 2:
-				return new UtilCol((byte)-1, currBoard.lastCol);
-		}
+	public UtilBoard minimax(C3 state){
+        //System.out.println("Minimax called!!!!");
+		//SEARCH FIRST!!!!!!!!!
+		int[] encR = state.encodeRows();
+		UtilBoard found = loaded.searchNode(encR);
+		if(found!=null) {
+			//System.out.println("Found!!!! Col: " + found.lastCol + " Util: " + found.util + " P1 turn?: "+ state.p1Turn);
+			return found;}
 		
-		ArrayList<BoardState> children = currBoard.children();
-		
-        if(children.size()==0){ //Nowhere else to go, tie
-            return new UtilCol((byte)0, currBoard.lastCol);
+        switch(state.winner) {
+        case 1: 
+        	loaded.insert(encR, 1, state.lastCol);
+        	return new UtilBoard(state.lastCol, 1);
+        case 2:
+        	loaded.insert(encR, -1, state.lastCol);
+        	return new UtilBoard(state.lastCol, -1);
         }
-        if(currBoard.p1turn){ //Return on 1st 1, otherwise return a tie, if neither is available return first option: util -1
-            UtilCol bestUtility = new UtilCol((byte)-1, children.get(0).lastCol);
-            for(BoardState child : children){
-                UtilCol util = minimax(child);
+        ArrayList<C3> children = state.children();
+        if(children.size()==0){ 
+        	loaded.insert(encR, 0, state.lastCol);
+            return new UtilBoard(state.lastCol,0);
+        }
+        
+        UtilBoard bestUtility;
+        if(state.p1Turn){ //Return on 1st 1, otherwise return a tie, if neither is available return first option: util -1
+            bestUtility = new UtilBoard(children.get(0).lastCol,-1);
+            for(C3 child : children){
+                UtilBoard util = minimax(child);
                 if(util.util==1){
-                    bestUtility = new UtilCol((byte)1,child.lastCol);} //Can't do better than guaranteed 1, return!!
-                else if(util.util==0){bestUtility=new UtilCol((byte)0, child.lastCol);}
+                    
+                	bestUtility = new UtilBoard(child.lastCol,1);
+                    loaded.insert(encR, bestUtility);
+                    return bestUtility;
+                    } //Can't do better than guaranteed 1, return!!
+                else if(util.util==0&&bestUtility.util!=1){
+                	bestUtility = new UtilBoard(child.lastCol,0);
+                    loaded.insert(encR, bestUtility);
+                    return bestUtility;
+                	}
             }
+           // System.out.println("Plater 1 Turn!!!" + bestUtility.lastCol);
 
-            return bestUtility;
         }
         else{//Return on 1st -1, otherwise return a tie, if neither is available return first option: util 1
-            UtilCol bestUtility = new UtilCol((byte)1, children.get(0).lastCol);
-            for(BoardState child: children){
-                UtilCol util = minimax(child);
-                if(util.util==-1){
-                	bestUtility = new UtilCol((byte)-1, child.lastCol);} //Can't do better than guaranteed -1, return
-                else if(util.util==0){bestUtility = new UtilCol((byte)0, child.lastCol);}
+            bestUtility = new UtilBoard(children.get(0).lastCol,1);
+            for(C3 child: children){
+                UtilBoard util = minimax(child);
+                if(util.util==-1){bestUtility = new UtilBoard(child.lastCol,-1);} //Can't do better than guaranteed -1, return
+                else if(util.util==0&&bestUtility.util!=-1){bestUtility = new UtilBoard(child.lastCol,0);}
             }
-
-            return bestUtility;
+           // System.out.println("Plater 2 Turn!!!" + bestUtility.lastCol);
         }
-	}
+        loaded.insert(encR, bestUtility);
+        return bestUtility;
+    }
 }
