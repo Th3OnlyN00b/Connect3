@@ -6,25 +6,55 @@
   <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
   <!-- Include CSS -->
   <link rel="stylesheet" href="style.css">
-  <script>
+  <script type = "text/javascript">
+  function connect(){
     //Javascript will be here soon :)
     //Connect to the server
-    var server_connection = new Socket('ws://18.224.19.21:9990');
-    server_connection.onopen = function(){
-      server_connection.listen();
-      server_connection.read();
-    //}
+    //Maybe need to change below parameter
+    var server_connection = new WebSocket("wss://echo.websocket.org/");
+      server_connection.onopen = function(){
+      //Listen for input
+        server_connection.onmessage(evt){
+          //String
+          if(typeOf evt.data == String){
+
+          //Number
+          }else if(Number(evt.data) != NaN){
+
+          //IDK?
+          }else if(typeOf evt.data == bytearrays[][]){
+
+          }
+        }
+      }
+    }
     //Log info into website
+
     //Send output
-    //server_connect.write();
+      //Say server_connection.send(MESSAGE)
+
   </script>
 </head>
 <body>
-  <h1 class = "display-2"> Connect 3</h1>
-  <h2>Rules </h2>
-    <p> Hello, this section will be for the rules </p>
-  <h2> AI Types </h2>
-    <p> Hello, this section will be for the AI Types </p>
-  <!-- More HTML will be here soon :) -->
+    <center><h1 class = "display-3"> Connect 3</h1></center>
+    <h2 class = "section">Rules </h2>
+    <ul>
+      <li> Players take turns inserting chips into a 5 by 4 board. </li>
+      <li> If one of the players connects three clips horizontally, vertically, or diagonially they win. </li>
+      <li> If the board gets filled and no one has connected three, the game ends with a tie. </li>
+    </ul>
+  <hr>
+  <h2 class = "section"> AI Types </h2>
+  <ul>
+    <li><strong> Human: </strong> Play against another human </li>
+    <li><strong> Random: </strong> Play against an AI that will place chips randomly </li>
+    <li><strong> Auto-Win: </strong> Play against an AI that will always win </li>
+    <li><strong> Minimax: </strong> Play against an AI that will try to avoid lossing at all cost </li>
+    <li><strong> Pruned Minimax: </strong> Play against an AI that will try to avoid lossing at all but faster </li>
+  </ul>
+  <hr>
+  <center>
+  <a class = "btn btn-secondary btn-lg btn-block" href = "play.html" role = "button"> Play </a>
+  </center>
 </body>
 </html>
