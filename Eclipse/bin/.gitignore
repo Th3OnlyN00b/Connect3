@@ -4,3 +4,9 @@
 /byteTouple.class
 /byteTuple.class
 /ByteTuple.class
+/BoardState.class
+/Minimax.class
+/Tuple.class
+/UtilCol.class
+/PrunedMinimax.class
+/tester.class
