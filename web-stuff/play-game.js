@@ -9,17 +9,26 @@ var connected = false;
 var p1 = 2;
 var p2 = 1;
 var possibleTypes = ["human", "random", "aw", "minimax", "pruned-mm"];
-var formal_names = {"human": "Human", "random": "Random", "aw": "Automatic", "minimax": "Minmax", "pruned-mm": "Pruned Minmax"};
+var formal_names = {"human": "Human", "random": "Random with Auto", "aw": "Automatic", "minimax": "Minmax", "pruned-mm": "Pruned Minmax"};
 var waiting = (p1 == "human" && p2 == "human");
 var playerTypeList = parseURL();
 
 // Replace player placeholders with player names
 $(document).ready(function() {
-  var p1Type = playerTypeList[0];
-  var p2Type = playerTypeList[1];
+  var p1Type = "";
+  var p2Type = "";
 
-  document.getElementById("player1Tag").innerHTML = formal_names[p1Type];
-  document.getElementById("player2Tag").innerHTML = formal_names[p2Type];
+  if(playerTypeList != null){
+    p1Type = playerTypeList[0];
+    p2Type = playerTypeList[1];
+
+    document.getElementById("player1Tag").innerHTML = formal_names[p1Type];
+    document.getElementById("player2Tag").innerHTML = formal_names[p2Type];
+  } else {
+    victory = 0;
+  }
+
+  
 })
 
 // Confirm connection
@@ -103,7 +112,7 @@ function sendClick(cell){
 
   // The game cannot start if there is no connection to the server!
   if(connected == false){
-    alert("Error: Cannot connect to the server!");
+    alert("Error: Problem setting up the game. Check your URL or your connection.");
   }
 
   // Player 1, if a human, must wait until player 2 appears
@@ -137,14 +146,14 @@ function parseURL(){
 
   // Make sure that there is the right number and type of queries
   if(queries.length != 2 || queries[0].slice(0,2) != "p1" || queries[1].slice(0,2) != "p2"){
-    alert("There seems to be something wrong with the URL. We will assume that both players are human.");
-    return(["human", "human"]);
+    alert("There seems to be something wrong with the URL. Please make sure that both players have been selected on a previous page.");
+    return;
   }
 
   // Make sure that both players are valid types
   if(!possibleTypes.includes(queries[0].slice(3)) || !possibleTypes.includes(queries[1].slice(3))){
-    alert("A player seems to be of an invalid type. We will assume that both players are human.");
-    return(["human", "human"]);
+    alert("A player seems to be of an invalid type. Please make sure that both players have been selected on a previous page.");
+    return;
   }
   else{
     var query1 = queries[0].slice(3);
@@ -152,8 +161,6 @@ function parseURL(){
     if(query2.charAt(query2.length - 1) == "#"){
       query2 = query2.slice(0, query2.length - 1);
     }
-    console.log(query1);
-    console.log(query2);
     var queries = [query1, query2];
     return(queries);
   }
