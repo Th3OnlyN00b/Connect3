@@ -74,19 +74,19 @@ void testDistanceSensors() {
 int columns[5]  = {0,0,0,0,0};
 
 void loop(){
-  /*while(true){
-    testDistanceSensors();
-  }*/
-  if(Serial.available()){
+  if(Serial.available()){ //When we recieve data from Processing/the server:
     b = Serial.read();
     playerTurn = false;
+    //We turn on the light corresponding to the column the server says, 
+    //and wait for the piece to be put in
     if(b == '0') {digitalWrite(A0, HIGH); columns[0]++;}
     if(b == '1') {digitalWrite(A1, HIGH); columns[1]++;}
     if(b == '2') {digitalWrite(A2, HIGH); columns[2]++;}
     if(b == '3') {digitalWrite(A3, HIGH); columns[3]++;}
     if(b == '4') {digitalWrite(A4, HIGH); columns[4]++;}
   }
-  if(millis() % 250 == 0){
+  if(millis() % 250 == 0){ 
+    //Poll the distance sensors four times a second  
     distance0[count] = readDistance(TRIG0, ECHO0);
     delay(50);
     distance1[count] = readDistance(TRIG1, ECHO1);
@@ -96,6 +96,7 @@ void loop(){
     distance3[count] = readDistance(TRIG3, ECHO3);
     delay(50);
     distance4[count] = readDistance(TRIG4, ECHO4);
+    //Check if the distance has decreased significantly in the last 1.25 seconds
     int count2 = (count + 1) % 5;
     if(distance0[count2] == 0);
     else if(columns[0] < 4 && distance0[count] - distance0[count2] >= threshold){
