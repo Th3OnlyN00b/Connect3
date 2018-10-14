@@ -36,7 +36,7 @@
         console.log('Unfilled players modal should be showing');
         $("#playersModal").modal("show");
       }
-      else if(player1 == 'human' || player2 == 'human'){
+      else if(player1 == 'human' && player2 == 'human'){
         alert("Due to the configuration of the server, you will be joined as player 2 if there is an open game.");
         var newURL = "board.html?p1=human&p2=human&join=false";
         window.location.href = newURL;

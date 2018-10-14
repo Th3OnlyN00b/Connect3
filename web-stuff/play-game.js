@@ -1,4 +1,4 @@
-var connection = new WebSocket('ws://1b34ccd2.ngrok.io');
+var connection = new WebSocket('ws://b69079a0.ngrok.io');
 var player = "";
 var availableSpaces = "01234";
 var victory = -1;
@@ -61,10 +61,16 @@ connection.onmessage = function (e) {
       console.log("Error: no game to join");
     }
 
-    var playerLetter = player==1?"A":"B";
-    connection.send(playerLetter + "human");
-    console.log("Player Letter has been sent: " + playerLetter + "human");
+    var playerLetter = player==1?"A"+p1Type:"B"+p2Type;
+    connection.send(playerLetter);
+    console.log("Player Letter has been sent: " + playerLetter);
     connected = true;
+      
+    //Initialize player B if not human
+    if(p2Type != "human"){
+      connection.send("B" + p2Type);
+        console.log("Opponent Letter has been sent: " + playerLetter);
+    }
   }
 
   // Update the grid if there is a command received to do so, and toggle the player turn
