@@ -11,7 +11,8 @@ public class Connect3Server {
 	//Opening welcome, mainly for debugging purposes.
 	public static void main(String[] args) {
 		System.out.println("Welcome to connect 3-- Just like connect 4, but worse.");
-		new WebsocketServer().start();
+		WebsocketServer a = new WebsocketServer();
+		a.start();
 		System.out.println("done");
 		
 		//connectToServer();

@@ -41,10 +41,9 @@ public class Hueristic {
 		int bestRating = Integer.MIN_VALUE;
 		
 		for(C3 child: children) {
-			int rating = heuristic(child, state.p1Turn ? (byte)1 : (byte)2);
+			int rating = heuristic(child, state.p1Turn ? (byte)1 : (byte)2)*3;
 			for(C3 c : child.children()) {
-				rating++; //so a win takes priority over preventing a loss
-				rating-=heuristic(c, child.p1Turn ? (byte)1 : (byte)2 );
+				rating-=heuristic(c, child.p1Turn ? (byte)1 : (byte)2 )/2;
 			}
 			if(rating>bestRating) {
 				bestCol=child.lastCol;

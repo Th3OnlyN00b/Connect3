@@ -4,17 +4,19 @@ public class C3 {
     public byte[][] board;
     public Set<Integer> validColumns;
     public boolean p1Turn;
-    byte winner = 0;
-    int lastCol = -1;
+    public byte winner = 0;
+    public int lastCol = -1;
+    public boolean gameOver = false;
     
     
 
-
+    //copy constructor
     private C3(){
         this.lastCol = -1;
         this.board =null;
     }
     
+    //main constructor
     public C3(int rows, int cols) {
     	this.board = new byte[rows][cols];
     	this.validColumns = new HashSet<Integer>();
@@ -24,7 +26,13 @@ public class C3 {
     	
     }
 
-    
+    public String getValidsAsString() {
+    	String str = "";
+    	for(int i : validColumns) {
+    		str += i;
+    	}
+    	return str;
+    }
     
     public int encodeRow(int row){
     	
@@ -172,12 +180,24 @@ public class C3 {
 
         if(newState.victory(h+1,col)){
             newState.winner = newState.board[h+1][col];
+            newState.gameOver = true;
+        }
+        if(newState.tie()) {
+        	newState.gameOver = true;
         }
         newState.p1Turn = !newState.p1Turn;
 
         return newState;
     }
-
+    
+    public boolean tie() {
+    	if(validColumns.size() == 0) {
+    		winner = 0;
+    		return true;
+    	}
+    	return false;
+    }
+    
     public ArrayList<C3> children(){
         ArrayList<C3> childs = new ArrayList<>();
         for(Integer col : validColumns){
