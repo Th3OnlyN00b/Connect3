@@ -13,9 +13,11 @@
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 
   <!-- Scripts go here -->
+  <script type="text/javascript" src="connection.js"></script>
+
   <script>
-            //Initialize proper grid size
-            $(document).ready(draw);
+        //Initialize proper grid size
+        $(document).ready(draw);
 
         //Make sure that the board scales upon the page being resized
         $(window).on("resize", draw);
@@ -36,60 +38,10 @@
         }
 
         function changeCellColor(cell){
-          var cellBG = document.getElementsByTagName("td")[cell].style.backgroundColor;
-          if(cellBG == "") document.getElementsByTagName("td")[cell].style.backgroundColor = "#969696";
-          else if(cellBG == "rgb(150, 150, 150)") document.getElementsByTagName("td")[cell].style.backgroundColor = "#ff0066";
-          else document.getElementsByTagName("td")[cell].style.backgroundColor = "";
+          if(cell == 1) document.getElementsByTagName("td")[cell].style.backgroundColor = "#969696";
+          else if(cell == 2) document.getElementsByTagName("td")[cell].style.backgroundColor = "#ff0066";
         }
-        var connection = new WebSocket('ws://590e2517.ngrok.io');
-
-          connection.onopen = function () {
-            console.log('Connected!');
-          };
-
-          // Log errors
-          connection.onerror = function (error) {
-            console.log('WebSocket Error ' + error);
-          };
-
-          // Log messages from the server
-          connection.onmessage = function (e) {
-            console.log('Server: ' + e.data);
-            var string_data = e.data;
-            var first_char = string_data.charAt(0);
-            if(string_data.charAt(0) == 'd'){
-
-            }else if(string_data.charAt(0) == 'n'){
-
-            }
-            var char_array = new Array(4);
-            for(int i = 0;i<string_data;i++){
-              char_array[i] = new Array(5);
-            }
-            int j = 0;
-            for(int i = 0;i<string_data;i++){
-              char_array[i][j] = string_data[i];
-              if(i > 3){
-                i = i%4;
-              }
-              if(j > 4){
-                j = j%5;
-              }
-              j+=1;
-            }
-            for(int x = 0;x<char_array.length();x++){
-              for(int y = 0; y < x.length();y++){
-                if(char_array[x][y] == 'x'){
-
-                }else if(char_array[x][y] == 'o'){
-
-                }else if(char_array[x][y] == '.'){
-
-                }
-              }
-            }
-          };
-        </script>
+  </script>
 
       <!-- Our custom theme CSS -->
       <link rel="stylesheet" href="style.css">
