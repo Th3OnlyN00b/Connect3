@@ -5,6 +5,7 @@ import org.java_websocket.server.WebSocketServer;
 import java.net.InetSocketAddress;
 import java.util.HashSet;
 import java.util.Set;
+import java.util.concurrent.TimeUnit;
 
 //Starter code borrowed from https://stackoverflow.com/questions/41470482/java-server-javascript-client-websockets
 public class WebsocketServer extends WebSocketServer {
@@ -14,7 +15,7 @@ public class WebsocketServer extends WebSocketServer {
 
     private Set<WebSocket> socks;
     //humans have weird interactions with the server and need to be treated special.
-    private boolean p1Human, p2Human;
+    private boolean p1Human, p2Human, p2Physical;
     private Connect3 c3Player1, c3Player2;
     private C3 game;
     private WebSocket p1Sock, p2Sock;
@@ -31,10 +32,17 @@ public class WebsocketServer extends WebSocketServer {
     //Actions taken on socket open
     @Override
     public void onOpen(WebSocket sock, ClientHandshake handshake) {
-    	if((!p2Human && p1Sock != null) || (p1Sock != null && p2Sock != null)) {
+    	if(!p2Physical && !p2Human && p1Sock != null) {
+    		System.out.println(p1Sock);
     		sock.send("GTFO");
     	}
+    	if(p1Sock != null && p2Sock != null) {
+    		sock.send("Nice try bud");
+    	}
     	else {
+        	if(p2Physical && p2Sock == null) {
+        		p2Sock = sock;
+        	}
 	        socks.add(sock);
 	        System.out.println("New connection from " + sock.getRemoteSocketAddress().getAddress().getHostAddress());
     	}
@@ -44,6 +52,16 @@ public class WebsocketServer extends WebSocketServer {
     @Override
     public void onClose(WebSocket sock, int code, String reason, boolean remote) {
         socks.remove(sock);
+        if(socks.size() <= 1) {
+        	p2Sock = null;
+        	p2Human = false;
+        	c3Player2 = null;
+        }
+        if(socks.size() == 0) {
+        	p1Sock = null;
+        	p1Human = false;
+        	c3Player1 = null;
+        }
         System.out.println("Closed connection to " + sock.getRemoteSocketAddress().getAddress().getHostAddress());
     }
 
@@ -69,6 +87,7 @@ public class WebsocketServer extends WebSocketServer {
         System.out.println("Message from client: " + message);
         switch(message.charAt(0)) {
         	case 'A':
+        		p1Sock = sock;
         		initPlayer1(message.substring(1, message.length()));
         		break;
         	case 'B':
@@ -79,25 +98,32 @@ public class WebsocketServer extends WebSocketServer {
         			System.out.println("Unexpected input: player 1 input given when none expected");
         			System.exit(1);
         		}
-        		p1Sock = sock;
         		play(Integer.parseInt(message.substring(1, message.length())), sock);
         		break;
         	case 'D':
-        		if(!p1Human) {
+        		System.out.println("GOT A D");
+        		if(!p2Human && !p2Physical) {
         			System.out.println("Unexpected input: player 2 input given when none expected");
         			System.exit(2);
         		}
-        		p2Sock = sock;
-        		play(Integer.parseInt(message.substring(1, message.length())), sock);
+        		if(!p2Physical) {
+        			p2Sock = sock;
+            		play(Integer.parseInt(message.substring(1, message.length())), sock);
+        		}
+        		else {
+            		play(Integer.parseInt(message.substring(1, message.length())), p2Sock);	
+        		}
         		break;
         	case 'E':
         		if(player1Exists) {
         			sock.send("p2");
         			p1Sock.send("x");
+            		p2Sock = sock;
         		}
         		else {
         			sock.send("p1");
         			player1Exists = true;
+        			p1Sock = sock;
         		}
         		break;
     		default:
@@ -116,21 +142,32 @@ public class WebsocketServer extends WebSocketServer {
     }
     
     public void play(int playCol, WebSocket sock) {
+    	try {
+			TimeUnit.MILLISECONDS.sleep(250);
+		} catch (InterruptedException e) {
+			e.printStackTrace();
+		}
     	game = game.place(playCol);
     	String jStr = game.toJSString();
     	System.out.println("Socket: " + sock);
     	System.out.println(jStr);
     	p1Sock.send(jStr);
     	p1Sock.send(game.getValidsAsString());
-    	if(p2Sock != null) {
+    	if(p2Human) {
+    		System.out.println("sending to p2");
     		p2Sock.send(jStr);
         	p2Sock.send(game.getValidsAsString());
     	}
+    	else if(p2Physical && !sock.equals(p2Sock)) {
+    		System.out.println("SENDING TO THE AI");
+    		p2Sock.send("d" + game.lastCol);
+    	}
     	if(game.gameOver) {
     		p1Sock.send("g"+game.winner);
-    		if(p2Human) {
+    		if(p2Human || p2Physical) {
     			p2Sock.send("g"+game.winner);
     		}
+    		System.exit(0);
     	}
     	if(!p1Human && p2Human && sock.equals(p2Sock)) {
     		System.out.println("player 1 is not human so they are being called directly");
@@ -140,7 +177,7 @@ public class WebsocketServer extends WebSocketServer {
     		System.out.println("player 2 is not human so they are being called directly");
     		play(c3Player1.play(game), p1Sock);
     	}
-    	else if(!p2Human && sock != null && sock.equals(p1Sock)) {
+    	else if(!p2Physical && !p2Human && sock != null && sock.equals(p1Sock)) {
     		play(c3Player2.play(game), null);
     	}
     }
@@ -165,7 +202,8 @@ public class WebsocketServer extends WebSocketServer {
     		c3Player1 = new RandomNoAutowin();
     		break;
     	case "aw":
-    		c3Player2 = new Random();
+    		c3Player1 = new Random();
+    		break;
 		default:
 			System.out.println("No valid input detected for player 1. Exiting.");
 			System.exit(5);
@@ -193,6 +231,11 @@ public class WebsocketServer extends WebSocketServer {
     		break;
     	case "aw":
     		c3Player2 = new Random();
+    		break;
+    	case "hw":
+    		p2Physical = true;
+    		System.out.println("THE PHYSICAL AI HAS BEEN ENGAGED");
+    		break;
 		default:
 			System.out.println("No valid input detected for player 2. Exiting.");
 			System.exit(6);
