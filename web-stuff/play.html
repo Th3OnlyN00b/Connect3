@@ -41,11 +41,6 @@
         var newURL = "board.html?p1=human&p2=human&join=false";
         window.location.href = newURL;
       }
-      //Warn if using slow minimax algorithm
-      else if(player1 == 'minimax' || player2 == 'minimax'){
-        console.log('Warning modal should be showing');
-        $("#warningModal").modal("show");
-      }
       else{
         var newURL = "board.html?p1=" + player1 + "&p2=" + player2 + "&join=false";
         window.location.href = newURL;
@@ -56,11 +51,6 @@
       console.log('Join Game button is pressed');
       var newURL = "board.html?p1=human&p2=human&join=true";
         window.location.href = newURL;
-    }
-
-    function sendToServer(){
-      console.log("Sending data to server");
-      //TODO
     }
   </script>
 
@@ -94,8 +84,8 @@
         <li><a class="dropdown-item" onclick="replacePlayer1('Human', 'human')">Human</a></li>
         <li><a class="dropdown-item" onclick="replacePlayer1('Random', 'random')">Random</a></li>
         <li><a class="dropdown-item" onclick="replacePlayer1('Random with Auto-win', 'aw')">Random with Auto-win</a></li>
-        <li><a class="dropdown-item" onclick="replacePlayer1('Minimax', 'minimax')">Minimax</a></li>
-        <li><a class="dropdown-item" onclick="replacePlayer1('Pruned minimax', 'pruned-mm')">Pruned minimax</a></li>
+        <li><a class="dropdown-item" onclick="replacePlayer1('Minmax', 'minimax')">Minmax</a></li>
+        <li><a class="dropdown-item" onclick="replacePlayer1('Pruned minmax', 'pruned-mm')">Pruned minmax</a></li>
       </ul>
     </span>
 
@@ -111,8 +101,8 @@
         <li><a class="dropdown-item" onclick="replacePlayer2('Human', 'human')">Human</a></li>
         <li><a class="dropdown-item" onclick="replacePlayer2('Random', 'random')">Random</a></li>
         <li><a class="dropdown-item" onclick="replacePlayer2('Random with Auto-win', 'aw')">Random with Auto-win</a></li>
-        <li><a class="dropdown-item" onclick="replacePlayer2('Minimax', 'minimax')">Minimax</a></li>
-        <li><a class="dropdown-item" onclick="replacePlayer2('Pruned minimax', 'pruned-mm')">Pruned minimax</a></li>
+        <li><a class="dropdown-item" onclick="replacePlayer2('Minmax', 'minimax')">Minmax</a></li>
+        <li><a class="dropdown-item" onclick="replacePlayer2('Pruned minmax', 'pruned-mm')">Pruned miniax</a></li>
         <li><a class="dropdown-item" onclick="replacePlayer2('Hardware', 'hw')">Hardware</a></li>
       </ul>
     </span>
@@ -126,31 +116,6 @@
     <br />
     <button type="button" class="btn" onclick="joinGame()">Join Game</button>
 
-  </div>
-
-  <!-- Warning modal for slow algorithms -->
-  <div class="modal fade" id="warningModal" role="dialog">
-    <div class="modal-dialog">
-
-      <!-- Modal content-->
-      <div class="modal-content">
-        <div class="modal-header">
-          <button type="button" class="close" data-dismiss="modal">&times;</button>
-          <h4 class="modal-title">Warning: slow algorithm!</h4>
-        </div>
-        <div class="modal-body">
-          <p>The minimax algorithm tends to be very slow, and moves may take a long time to calculate.
-          Please be patient as the algorithm calculates its moves.</p>
-        </div>
-        <div class="modal-footer">
-          <!-- Proceed must be clicked -->
-          <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
-          <button type="button" class="btn btn-warning" data-dismiss="modal" onclick="var newURL = 'board.html?p1=' + player1 + '&p2=' + player2 + '&join=false';
-        window.location.href = newURL;">Proceed</button>
-        </div>
-      </div>
-
-    </div>
   </div>
 
   <!-- Modal that appears when there are not enough players -->

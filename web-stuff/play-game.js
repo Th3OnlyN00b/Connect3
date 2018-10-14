@@ -8,7 +8,7 @@ var connected = false;
 // Parse code based on player (2 for player 1, or 1 for player 2)
 var p1 = 2;
 var p2 = 1;
-var possibleTypes = ["human", "random", "aw", "minimax", "pruned-mm"];
+var possibleTypes = ["human", "random", "aw", "minimax", "pruned-mm", "hw"];
 var formal_names = {"human": "Human", "random": "Random with Auto-win", "aw": "Automatic", "minimax": "Minmax", "pruned-mm": "Pruned Minmax", "hw": "Hardware"};
 var waiting = (p1 == "human" && p2 == "human");
 var playerTypeList = parseURL();
@@ -37,6 +37,7 @@ window.onload = function (){
 // Confirm connection
 connection.onopen = function (e) {
   console.log('Connected!');
+  connected = true;
   connection.send("E");
 }
 
@@ -47,8 +48,10 @@ connection.onerror = function (error) {
 
 // Log messages from the server
 connection.onmessage = function (e) {
-  console.log('Server: ' + e.data);
+  console.log("Input: " + e.data);
+  console.log(e.data);
   var string_data = e.data;
+  console.log("String data: " + string_data);
   var first_char = string_data.charAt(0);
 
   if(first_char == 'x' || player != 'human'){
@@ -56,18 +59,12 @@ connection.onmessage = function (e) {
   }
 
   // Set player data for the player
-  else if(first_char == 'p'){
+  if(first_char == 'p'){
     player = e.data.charAt(1);
-
-    if(joining && player == 1){
-      alert("Error: There is no game to join!")
-      console.log("Error: no game to join");
-    }
-
+    
     var playerLetter = player==1?"A"+p1Type:"B"+p2Type;
     connection.send(playerLetter);
     console.log("Player Letter has been sent: " + playerLetter);
-    connected = true;
       
     //Initialize player B if not human
     if(p2Type != "human"){
