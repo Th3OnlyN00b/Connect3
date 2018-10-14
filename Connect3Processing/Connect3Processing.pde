@@ -15,10 +15,10 @@ void setup() {
 void draw(){
   //Taking data from the Arduino when available and sends it to the server
   if(port.available() > 0 && playerTurn){
-    byte playerMove = (byte)port.read();
+    char playerMove = (char)port.read();
     String a = "D" + playerMove;
     wsc.sendMessage(a);
-    println("Message sent: " + playerMove);
+    println("Message sent: " + a);
   }
 }
 
