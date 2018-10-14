@@ -36,15 +36,26 @@
         console.log('Unfilled players modal should be showing');
         $("#playersModal").modal("show");
       }
+      else if(player1 == 'human' || player2 == 'human'){
+        alert("Due to the configuration of the server, you will be joined as player 2 if there is an open game.");
+        var newURL = "board.html?p1=human&p2=human&join=false";
+        window.location.href = newURL;
+      }
       //Warn if using slow minimax algorithm
       else if(player1 == 'minimax' || player2 == 'minimax'){
         console.log('Warning modal should be showing');
         $("#warningModal").modal("show");
       }
       else{
-        var newURL = "board.html?p1=" + player1 + "&p2=" + player2;
+        var newURL = "board.html?p1=" + player1 + "&p2=" + player2 + "&join=false";
         window.location.href = newURL;
       }
+    }
+
+    function joinGame(){
+      console.log('Join Game button is pressed');
+      var newURL = "board.html?p1=human&p2=human&join=true";
+        window.location.href = newURL;
     }
 
     function sendToServer(){
@@ -109,7 +120,10 @@
 
     <!-- Play Game button -->
     <br />
-    <button type="button" class="btn btn-primary" onclick="playGame()">Play Game</button>
+    <button type="button" class="btn btn-primary" onclick="playGame()">Host Game</button>
+    <br />
+    <br />
+    <button type="button" class="btn" onclick="joinGame()">Join Game</button>
 
   </div>
 

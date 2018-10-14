@@ -11,24 +11,28 @@ var p2 = 1;
 var possibleTypes = ["human", "random", "aw", "minimax", "pruned-mm"];
 var formal_names = {"human": "Human", "random": "Random with Auto", "aw": "Automatic", "minimax": "Minmax", "pruned-mm": "Pruned Minmax"};
 var waiting = (p1 == "human" && p2 == "human");
-var playerTypeList = parseURL();
 
 // Replace player placeholders with player names
 $(document).ready(function() {
+  var playerTypeList = parseURL();
   var p1Type = "";
   var p2Type = "";
+  var joining = "";
 
+  // If everything is correct, set the players and start the game
   if(playerTypeList != null){
     p1Type = playerTypeList[0];
     p2Type = playerTypeList[1];
+    joining = playerTypeList[2];
 
     document.getElementById("player1Tag").innerHTML = formal_names[p1Type];
     document.getElementById("player2Tag").innerHTML = formal_names[p2Type];
-  } else {
+  } 
+
+  // Disable playing if the game was improperly entered
+  else {
     victory = 0;
   }
-
-  
 })
 
 // Confirm connection
@@ -55,6 +59,11 @@ connection.onmessage = function (e) {
   // Set player data for the player
   else if(first_char == 'p'){
     player = e.data.charAt(1);
+
+    if(joining && player == p1){
+      alert("Error: There is no game to join!")
+    }
+
     var playerLetter = player==1?"A":"B";
     connection.send(playerLetter + "human");
     console.log("Player Letter has been sent: " + playerLetter + "human");
@@ -145,7 +154,7 @@ function parseURL(){
   var queries = queryString.split("&");
 
   // Make sure that there is the right number and type of queries
-  if(queries.length != 2 || queries[0].slice(0,2) != "p1" || queries[1].slice(0,2) != "p2"){
+  if(queries.length != 3 || queries[0].slice(0,2) != "p1" || queries[1].slice(0,2) != "p2"){
     alert("There seems to be something wrong with the URL. Please make sure that both players have been selected on a previous page.");
     return;
   }
@@ -158,10 +167,14 @@ function parseURL(){
   else{
     var query1 = queries[0].slice(3);
     var query2 = queries[1].slice(3);
+    var query2 = queries[2].slice(5);
     if(query2.charAt(query2.length - 1) == "#"){
       query2 = query2.slice(0, query2.length - 1);
     }
-    var queries = [query1, query2];
+    if(query3.charAt(query3.length - 1) == "#"){
+      query3 = query3.slice(0, query3.length - 1);
+    }
+    var queries = [query1, query2, query3];
     return(queries);
   }
 }
