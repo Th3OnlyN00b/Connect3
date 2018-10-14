@@ -9,7 +9,7 @@ var connected = false;
 var p1 = 2;
 var p2 = 1;
 var possibleTypes = ["human", "random", "aw", "minimax", "pruned-mm"];
-var formal_names = {"human": "Human", "random": "Random with Auto", "aw": "Automatic", "minimax": "Minmax", "pruned-mm": "Pruned Minmax", "hw": "Hardware"};
+var formal_names = {"human": "Human", "random": "Random with Auto-win", "aw": "Automatic", "minimax": "Minmax", "pruned-mm": "Pruned Minmax", "hw": "Hardware"};
 var waiting = (p1 == "human" && p2 == "human");
 var playerTypeList = parseURL();
 var p1Type = playerTypeList.length>0?playerTypeList[0]:null;
@@ -18,6 +18,9 @@ var joining = playerTypeList.length>2?playerTypeList[2]:null;
 
 // Replace player placeholders with player names
 window.onload = function (){
+  if(p2Type != "human"){
+    document.getElementById("subheader").innerHTML = "Welcome to Connect 3!";
+  }
 
   // If everything is correct, set the players and start the game
   if(playerTypeList != null){
@@ -48,7 +51,7 @@ connection.onmessage = function (e) {
   var string_data = e.data;
   var first_char = string_data.charAt(0);
 
-  if(first_char == 'x'){
+  if(first_char == 'x' || player != 'human'){
     waiting = false;
   }
 
@@ -56,7 +59,7 @@ connection.onmessage = function (e) {
   else if(first_char == 'p'){
     player = e.data.charAt(1);
 
-    if(joining && player == p1){
+    if(joining && player == 1){
       alert("Error: There is no game to join!")
       console.log("Error: no game to join");
     }
@@ -69,7 +72,8 @@ connection.onmessage = function (e) {
     //Initialize player B if not human
     if(p2Type != "human"){
       connection.send("B" + p2Type);
-        console.log("Opponent Letter has been sent: " + playerLetter);
+        console.log("Opponent Letter has been sent: " + "B" + p2Type);
+        document.getElementById("subheader").innerHTML = "Player 1's turn to play!";
     }
   }
 

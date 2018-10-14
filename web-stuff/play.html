@@ -93,7 +93,7 @@
       <ul class="dropdown-menu" aria-labelledby="dropdownMenuLink">
         <li><a class="dropdown-item" onclick="replacePlayer1('Human', 'human')">Human</a></li>
         <li><a class="dropdown-item" onclick="replacePlayer1('Random', 'random')">Random</a></li>
-        <li><a class="dropdown-item" onclick="replacePlayer1('Random with Auto', 'aw')">Auto-Win</a></li>
+        <li><a class="dropdown-item" onclick="replacePlayer1('Random with Auto-win', 'aw')">Random with Auto-win</a></li>
         <li><a class="dropdown-item" onclick="replacePlayer1('Minimax', 'minimax')">Minimax</a></li>
         <li><a class="dropdown-item" onclick="replacePlayer1('Pruned minimax', 'pruned-mm')">Pruned minimax</a></li>
       </ul>
@@ -110,7 +110,7 @@
       <ul class="dropdown-menu" aria-labelledby="dropdownMenuLink">
         <li><a class="dropdown-item" onclick="replacePlayer2('Human', 'human')">Human</a></li>
         <li><a class="dropdown-item" onclick="replacePlayer2('Random', 'random')">Random</a></li>
-        <li><a class="dropdown-item" onclick="replacePlayer2('Random with Auto', 'aw')">Auto-Win</a></li>
+        <li><a class="dropdown-item" onclick="replacePlayer2('Random with Auto-win', 'aw')">Random with Auto-win</a></li>
         <li><a class="dropdown-item" onclick="replacePlayer2('Minimax', 'minimax')">Minimax</a></li>
         <li><a class="dropdown-item" onclick="replacePlayer2('Pruned minimax', 'pruned-mm')">Pruned minimax</a></li>
         <li><a class="dropdown-item" onclick="replacePlayer2('Hardware', 'hw')">Hardware</a></li>
@@ -145,7 +145,8 @@
         <div class="modal-footer">
           <!-- Proceed must be clicked -->
           <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
-          <button type="button" class="btn btn-warning" data-dismiss="modal" onclick="sendToServer()">Proceed</button>
+          <button type="button" class="btn btn-warning" data-dismiss="modal" onclick="var newURL = 'board.html?p1=' + player1 + '&p2=' + player2 + '&join=false';
+        window.location.href = newURL;">Proceed</button>
         </div>
       </div>
 
