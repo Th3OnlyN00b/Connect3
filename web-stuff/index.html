@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
+<<<<<<< HEAD
   <title> Connect 3 </title>
   <!-- Include Bootstrap -->
   <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
@@ -24,45 +25,28 @@
       var string_data = e.data;
       var first_char = string_data.charAt(0);
       if(string_data.charAt(0) == 'd'){
+=======
+>>>>>>> master
 
-      }else if(string_data.charAt(0) == 'n'){
+  <!-- Include Bootstrap -->
+  <!-- Latest compiled and minified CSS -->
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
 
-      }
-      var char_array = new Array(4);
-      for(int i = 0;i<string_data;i++){
-        char_array[i] = new Array(5);
-      }
-      int j = 0;
-      for(int i = 0;i<string_data;i++){
-        char_array[i][j] = string_data[i];
-        if(i > 3){
-          i = i%4;
-        }
-        if(j > 4){
-          j = j%5;
-        }
-        j+=1;
-      }
-      for(int x = 0;x<char_array.length();x++){
-        for(int y = 0; y < x.length();y++){
-          if(char_array[x][y] == 'x'){
+  <!-- jQuery library -->
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 
-          }else if(char_array[x][y] == 'o'){
+  <!-- Latest compiled JavaScript -->
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 
-          }else if(char_array[x][y] == '.'){
+  <!-- Our custom theme CSS -->
+  <link rel="stylesheet" href="style.css">
 
-          }
-        }
-      }
-    //Log info into website
-
-    //Send output
-      //Say server_connection.send(MESSAGE)
-    };
-  </script>
 </head>
+
 <body>
-    <center><h1 class = "display-3"> Connect 3</h1></center>
+    <div class="text-center">
+      <h1 class = "jumbotron"> Connect 3</h1></div>
+      <h3 class = "text-center">Welcome to the game of Connect 3!</h3>
     <h2 class = "section">Rules </h2>
     <ul>
       <li> Players take turns inserting chips into a 5 by 4 board. </li>
@@ -70,17 +54,27 @@
       <li> If the board gets filled and no one has connected three, the game ends with a tie. </li>
     </ul>
   <hr>
-  <h2 class = "section"> AI Types </h2>
+  <h2 class = "section"> Player Types </h2>
   <ul>
     <li><strong> Human: </strong> Play against another human </li>
     <li><strong> Random: </strong> Play against an AI that will place chips randomly </li>
     <li><strong> Auto-Win: </strong> Play against an AI that will always win </li>
     <li><strong> Minimax: </strong> Play against an AI that will try to avoid lossing at all cost </li>
     <li><strong> Pruned Minimax: </strong> Play against an AI that will try to avoid lossing at all but faster </li>
+    <li><strong> Hardware: </strong> Play against another player using out special hardware device </li>
   </ul>
   <hr>
+<<<<<<< HEAD
   <center>
   <a class = "btn btn-secondary btn-lg btn-block" href = "play.html" role = "button"> Play </a>
   </center>
+=======
+  <h2 class = "section"> Hardware </h2>
+  <p> For this project, there is a physical board that you put tokens into, the board will detect where the tokens are and record it (if you are playing against a human) and map it onto the website. If you are playing against an AI, the hardware is not used.</p>
+  <br />
+  <div class="text-center">
+  <a class = "btn btn-primary btn-lg" href = "play.html" role = "button"> Play </a>
+  </div>
+>>>>>>> master
 </body>
 </html>

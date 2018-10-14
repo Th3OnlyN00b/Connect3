@@ -8,7 +8,11 @@ var connected = false;
 // Parse code based on player (2 for player 1, or 1 for player 2)
 var p1 = 2;
 var p2 = 1;
+<<<<<<< HEAD
 var possibleTypes = ["human", "random", "aw", "minimax", "pruned-mm"];
+=======
+var possibleTypes = ["human", "random", "aw", "minimax", "pruned-mm", "hw"];
+>>>>>>> master
 var formal_names = {"human": "Human", "random": "Random with Auto-win", "aw": "Automatic", "minimax": "Minmax", "pruned-mm": "Pruned Minmax", "hw": "Hardware"};
 var waiting = (p1 == "human" && p2 == "human");
 var playerTypeList = parseURL();
@@ -37,6 +41,10 @@ window.onload = function (){
 // Confirm connection
 connection.onopen = function (e) {
   console.log('Connected!');
+<<<<<<< HEAD
+=======
+  connected = true;
+>>>>>>> master
   connection.send("E");
 }
 
@@ -47,8 +55,15 @@ connection.onerror = function (error) {
 
 // Log messages from the server
 connection.onmessage = function (e) {
+<<<<<<< HEAD
   console.log('Server: ' + e.data);
   var string_data = e.data;
+=======
+  console.log("Input: " + e.data);
+  console.log(e.data);
+  var string_data = e.data;
+  console.log("String data: " + string_data);
+>>>>>>> master
   var first_char = string_data.charAt(0);
 
   if(first_char == 'x' || player != 'human'){
@@ -56,6 +71,7 @@ connection.onmessage = function (e) {
   }
 
   // Set player data for the player
+<<<<<<< HEAD
   else if(first_char == 'p'){
     player = e.data.charAt(1);
 
@@ -68,6 +84,14 @@ connection.onmessage = function (e) {
     connection.send(playerLetter);
     console.log("Player Letter has been sent: " + playerLetter);
     connected = true;
+=======
+  if(first_char == 'p'){
+    player = e.data.charAt(1);
+    
+    var playerLetter = player==1?"A"+p1Type:"B"+p2Type;
+    connection.send(playerLetter);
+    console.log("Player Letter has been sent: " + playerLetter);
+>>>>>>> master
       
     //Initialize player B if not human
     if(p2Type != "human"){
