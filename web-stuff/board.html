@@ -37,10 +37,7 @@
           }
         }
 
-        function changeCellColor(cell){
-          if(cell == 1) document.getElementsByTagName("td")[cell].style.backgroundColor = "#969696";
-          else if(cell == 2) document.getElementsByTagName("td")[cell].style.backgroundColor = "#ff0066";
-        }
+        
   </script>
 
       <!-- Our custom theme CSS -->
@@ -72,32 +69,33 @@
       <!-- Connect 3 grid -->
       <table id="grid" border="2" align="center" width="400px">
         <tr>
-          <td><a href="#" id = "0" onclick="changeCellColor(this.id)">&nbsp;</a></td>
-          <td><a href="#" id = "1" onclick="changeCellColor(this.id)">&nbsp;</a></td>
-          <td><a href="#" id = "2" onclick="changeCellColor(this.id)">&nbsp;</a></td>
-          <td><a href="#" id = "3" onclick="changeCellColor(this.id)">&nbsp;</a></td>
-          <td><a href="#" id = "4" onclick="changeCellColor(this.id)">&nbsp;</a></td>
+          
+          <td><a href="#" id = "15" onclick="sendClick(this.id)">&nbsp;</a></td>
+          <td><a href="#" id = "16" onclick="sendClick(this.id)">&nbsp;</a></td>
+          <td><a href="#" id = "17" onclick="sendClick(this.id)">&nbsp;</a></td>
+          <td><a href="#" id = "18" onclick="sendClick(this.id)">&nbsp;</a></td>
+          <td><a href="#" id = "19" onclick="sendClick(this.id)">&nbsp;</a></td>
         </tr>
         <tr>
-          <td><a href="#" id = "5" onclick="changeCellColor(this.id)">&nbsp;</a></td>
-          <td><a href="#" id = "6" onclick="changeCellColor(this.id)">&nbsp;</a></td>
-          <td><a href="#" id = "7" onclick="changeCellColor(this.id)">&nbsp;</a></td>
-          <td><a href="#" id = "8" onclick="changeCellColor(this.id)">&nbsp;</a></td>
-          <td><a href="#" id = "9" onclick="changeCellColor(this.id)">&nbsp;</a></td>
+          <td><a href="#" id = "10" onclick="sendClick(this.id)">&nbsp;</a></td>
+          <td><a href="#" id = "11" onclick="sendClick(this.id)">&nbsp;</a></td>
+          <td><a href="#" id = "12" onclick="sendClick(this.id)">&nbsp;</a></td>
+          <td><a href="#" id = "13" onclick="sendClick(this.id)">&nbsp;</a></td>
+          <td><a href="#" id = "14" onclick="sendClick(this.id)">&nbsp;</a></td>
         </tr>
         <tr>
-          <td><a href="#" id = "10" onclick="changeCellColor(this.id)">&nbsp;</a></td>
-          <td><a href="#" id = "11" onclick="changeCellColor(this.id)">&nbsp;</a></td>
-          <td><a href="#" id = "12" onclick="changeCellColor(this.id)">&nbsp;</a></td>
-          <td><a href="#" id = "13" onclick="changeCellColor(this.id)">&nbsp;</a></td>
-          <td><a href="#" id = "14" onclick="changeCellColor(this.id)">&nbsp;</a></td>
+          <td><a href="#" id = "5" onclick="sendClick(this.id)">&nbsp;</a></td>
+          <td><a href="#" id = "6" onclick="sendClick(this.id)">&nbsp;</a></td>
+          <td><a href="#" id = "7" onclick="sendClick(this.id)">&nbsp;</a></td>
+          <td><a href="#" id = "8" onclick="sendClick(this.id)">&nbsp;</a></td>
+          <td><a href="#" id = "9" onclick="sendClick(this.id)">&nbsp;</a></td>
         </tr>
         <tr>
-          <td><a href="#" id = "15" onclick="changeCellColor(this.id)">&nbsp;</a></td>
-          <td><a href="#" id = "16" onclick="changeCellColor(this.id)">&nbsp;</a></td>
-          <td><a href="#" id = "17" onclick="changeCellColor(this.id)">&nbsp;</a></td>
-          <td><a href="#" id = "18" onclick="changeCellColor(this.id)">&nbsp;</a></td>
-          <td><a href="#" id = "19" onclick="changeCellColor(this.id)">&nbsp;</a></td>
+          <td><a href="#" id = "0" onclick="sendClick(this.id)">&nbsp;</a></td>
+          <td><a href="#" id = "1" onclick="sendClick(this.id)">&nbsp;</a></td>
+          <td><a href="#" id = "2" onclick="sendClick(this.id)">&nbsp;</a></td>
+          <td><a href="#" id = "3" onclick="sendClick(this.id)">&nbsp;</a></td>
+          <td><a href="#" id = "4" onclick="sendClick(this.id)">&nbsp;</a></td>
         </tr>
       </table>
 
@@ -108,5 +106,27 @@
         <h3 style="display:inline; id="p1">Player 1</h3>
         &nbsp;&nbsp;&nbsp;&nbsp;vs.&nbsp;&nbsp;&nbsp;&nbsp;
         <h3 style="display:inline; id="p2">Player 2</h3></div>
+
+      <!-- Warning modal for slow algorithms -->
+  <div class="modal fade" id="warningModal" role="dialog">
+    <div class="modal-dialog">
+
+      <!-- Error modal if trying to place one piece on anp -->
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal">&times;</button>
+          <h4 class="modal-title">Invalid Move</h4>
+        </div>
+        <div class="modal-body">
+          <p id="message">You cannot place a piece onto another piece!</p>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-warning" data-dismiss="modal" onclick="sendToServer()">Proceed</button>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
       </body>
       </html>

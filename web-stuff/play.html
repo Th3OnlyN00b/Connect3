@@ -42,7 +42,8 @@
         $("#warningModal").modal("show");
       }
       else{
-        sendToServer();
+        var newURL = "board.html?p1=" + player1 + "&p2=" + player2;
+        window.location.href = newURL;
       }
     }
 
@@ -67,12 +68,6 @@
   <div class="text-center">
     <!-- Main Content of Connect 3 Page -->
     <h1 class = "jumbotron">Connect 3</h1>
-
-    <!-- Alert that appears when one of the players is unselected -->
-    <div class="alert alert-danger alert-dismissible fade in">
-      <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
-      <strong>Error: </strong> Please select both players.
-    </div>
 
     <h2>Choose your players: </h2>
     <!-- Player 1 -->
