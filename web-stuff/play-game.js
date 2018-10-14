@@ -1,27 +1,37 @@
-var connection = new WebSocket('ws://995bcfe6.ngrok.io');
+var connection = new WebSocket('ws://1b34ccd2.ngrok.io:9995');
 var player = "";
 var availableSpaces = "01234";
 var victory = -1;
 var turn = 1;
+var connected = false;
 
 // Parse code based on player (2 for player 1, or 1 for player 2)
 var p1 = 2;
 var p2 = 1;
-var possibleTypes = ["human", "random", "aw", "minimax", "pruned-mm"]
-var playerTypeList = parseURL();
-var p1Type = playerTypeList[1];
-var p2Type = playerTypeList[2];
+var possibleTypes = ["human", "random", "aw", "minimax", "pruned-mm"];
+var formal_names = {"human": "Human", "random": "Random", "aw": "Automatic", "minimax": "Minmax", "pruned-mm": "Pruned Minmax"};
 var waiting = (p1 == "human" && p2 == "human");
+var playerTypeList = parseURL();
 
+// Replace player placeholders with player names
+$(document).ready(function() {
+  var p1Type = playerTypeList[0];
+  var p2Type = playerTypeList[1];
+
+  document.getElementById("player1Tag").innerHTML = formal_names[p1Type];
+  document.getElementById("player2Tag").innerHTML = formal_names[p2Type];
+})
+
+// Confirm connection
 connection.onopen = function (e) {
   console.log('Connected!');
   connection.send("E");
-};
+}
 
 // Log errors
 connection.onerror = function (error) {
   console.log('WebSocket Error ' + error);
-};
+}
 
 // Log messages from the server
 connection.onmessage = function (e) {
@@ -32,11 +42,16 @@ connection.onmessage = function (e) {
   if(first_char == 'x'){
     waiting = false;
   }
+
+  // Set player data for the player
   else if(first_char == 'p'){
     player = e.data.charAt(1);
     var playerLetter = player==1?"A":"B";
     connection.send(playerLetter + "human");
     console.log("Player Letter has been sent: " + playerLetter + "human");
+    connected = true;
+
+    document.getElementById("subheader").innerHTML = "Welcome, player " + player + "!"
   }
 
   // Update the grid if there is a command received to do so, and toggle the player turn
@@ -64,7 +79,7 @@ connection.onmessage = function (e) {
     }
   }
 
-};
+}
 
 function colorSpaces(spaceList){
   for(var i = 0; i < 20; i++){
@@ -86,8 +101,13 @@ function sendClick(cell){
   var columnNum = cell % 5;
   console.log("Cell has been clicked on");
 
+  // The game cannot start if there is no connection to the server!
+  if(connected == false){
+    alert("Error: Cannot connect to the server!");
+  }
+
   // Player 1, if a human, must wait until player 2 appears
-  if(waiting){
+  else if(waiting){
     alert("Waiting for the second player to join the server...");
   }
 
@@ -110,7 +130,7 @@ function showInvalidMoveModal(){
 }
 
 // This parses the received URL, getting the types of players
-function parseURL(parameter){
+function parseURL(){
   var decoded = decodeURIComponent(window.location.search);
   var queryString = decoded.substring(1);
   var queries = queryString.split("&");
@@ -127,7 +147,15 @@ function parseURL(parameter){
     return(["human", "human"]);
   }
   else{
-    return([queries[0].slice(3), queries[1].slice(3)]);
+    var query1 = queries[0].slice(3);
+    var query2 = queries[1].slice(3);
+    if(query2.charAt(query2.length - 1) == "#"){
+      query2 = query2.slice(0, query2.length - 1);
+    }
+    console.log(query1);
+    console.log(query2);
+    var queries = [query1, query2];
+    return(queries);
   }
 }
 
