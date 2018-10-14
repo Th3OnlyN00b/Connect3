@@ -29,6 +29,9 @@ void webSocketEvent(String msg){
     case 'd':
       port.write(msg.charAt(1));
       break;
+    case 'g':
+      port.write('G');
+      break;
     default:
       println("NOPE");
       System.exit(0);

@@ -84,6 +84,13 @@ void loop(){
     if(b == '2') {digitalWrite(A2, HIGH); columns[2]++;}
     if(b == '3') {digitalWrite(A3, HIGH); columns[3]++;}
     if(b == '4') {digitalWrite(A4, HIGH); columns[4]++;}
+    while(b == 'G'){ //Game Over!
+      digitalWrite(A0, HIGH);
+      digitalWrite(A1, HIGH);
+      digitalWrite(A2, HIGH);
+      digitalWrite(A3, HIGH);
+      digitalWrite(A4, HIGH);
+    }
   }
   if(millis() % 250 == 0){ 
     //Poll the distance sensors four times a second  
