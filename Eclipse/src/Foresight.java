@@ -1,5 +1,5 @@
 import java.util.*;
-public class Foresight {
+public class Foresight implements Connect3{
 	public ArrayList<Integer> possibleMoves = new ArrayList<>();
 	public ArrayList<Integer> guaranteedMoves = new ArrayList<>();
 

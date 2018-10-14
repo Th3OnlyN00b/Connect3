@@ -13,8 +13,10 @@
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 
   <!-- Scripts go here -->
+  <script type="text/javascript" src="connection.js"></script>
+
   <script>
-            //Initialize proper grid size
+        //Initialize proper grid size
         $(document).ready(draw);
 
         //Make sure that the board scales upon the page being resized
@@ -27,63 +29,84 @@
           //Scale grid outer borders
           grid.style.width = ($(window).width() / 2) + "px";
           grid.style.height = (grid.style.width.slice(0, grid.style.width.length-2) * 0.8) + "px";
+
+          //Make each grid cell 20px
+          var cells = document.getElementsByTagName("td");
+          for(var i = 0; i < cells.length; i++){
+            cells[i].style.width = "20%";
+          }
+        }
+
+        function changeCellColor(cell){
+          if(cell == 1) document.getElementsByTagName("td")[cell].style.backgroundColor = "#969696";
+          else if(cell == 2) document.getElementsByTagName("td")[cell].style.backgroundColor = "#ff0066";
         }
   </script>
 
-    <!-- Our custom theme CSS -->
-    <link rel="stylesheet" href="style.css">
+      <!-- Our custom theme CSS -->
+      <link rel="stylesheet" href="style.css">
 
-    <!-- TODO: move to general CSS document -->
-    <style type="text/css">
+      <!-- TODO: move to general CSS document -->
+      <style type="text/css">
+      td a {
+        display:block;
+        text-decoration: none;
+        text-align: center;
+        vertical-align: middle;
+        height: 100%;
+        width: 100%;
+      }
+      td a:hover {
+        text-decoration: none;
+      }
     </style>
 
-</head>
+  </head>
 
-<body>
+  <body>
 
-  <div class="text-center">
-    <!-- Main Content of Connect 3 Page -->
-    <h1 class = "jumbotron">Connect 3</h1>
+    <div class="text-center">
+      <!-- Main Content of Connect 3 Page -->
+      <h1 class = "jumbotron">Connect 3</h1>
 
-    <!-- Connect 3 grid -->
-        <table id="grid" border="2" align="center" width="400px">
-          <tr>
-            <td>.</td>
-            <td>.</td>
-            <td>.</td>
-            <td>.</td>
-            <td>.</td>
-          </tr>
-          <tr>
-            <td>.</td>
-            <td>.</td>
-            <td>.</td>
-            <td>.</td>
-            <td>.</td>
-          </tr>
-          <tr>
-            <td>.</td>
-            <td>.</td>
-            <td>.</td>
-            <td>.</td>
-            <td>.</td>
-          </tr>
-          <tr>
-            <td>.</td>
-            <td>.</td>
-            <td>.</td>
-            <td>.</td>
-            <td>.</td>
-          </tr>
-        </table>
+      <!-- Connect 3 grid -->
+      <table id="grid" border="2" align="center" width="400px">
+        <tr>
+          <td><a href="#" id = "0" onclick="changeCellColor(this.id)">&nbsp;</a></td>
+          <td><a href="#" id = "1" onclick="changeCellColor(this.id)">&nbsp;</a></td>
+          <td><a href="#" id = "2" onclick="changeCellColor(this.id)">&nbsp;</a></td>
+          <td><a href="#" id = "3" onclick="changeCellColor(this.id)">&nbsp;</a></td>
+          <td><a href="#" id = "4" onclick="changeCellColor(this.id)">&nbsp;</a></td>
+        </tr>
+        <tr>
+          <td><a href="#" id = "5" onclick="changeCellColor(this.id)">&nbsp;</a></td>
+          <td><a href="#" id = "6" onclick="changeCellColor(this.id)">&nbsp;</a></td>
+          <td><a href="#" id = "7" onclick="changeCellColor(this.id)">&nbsp;</a></td>
+          <td><a href="#" id = "8" onclick="changeCellColor(this.id)">&nbsp;</a></td>
+          <td><a href="#" id = "9" onclick="changeCellColor(this.id)">&nbsp;</a></td>
+        </tr>
+        <tr>
+          <td><a href="#" id = "10" onclick="changeCellColor(this.id)">&nbsp;</a></td>
+          <td><a href="#" id = "11" onclick="changeCellColor(this.id)">&nbsp;</a></td>
+          <td><a href="#" id = "12" onclick="changeCellColor(this.id)">&nbsp;</a></td>
+          <td><a href="#" id = "13" onclick="changeCellColor(this.id)">&nbsp;</a></td>
+          <td><a href="#" id = "14" onclick="changeCellColor(this.id)">&nbsp;</a></td>
+        </tr>
+        <tr>
+          <td><a href="#" id = "15" onclick="changeCellColor(this.id)">&nbsp;</a></td>
+          <td><a href="#" id = "16" onclick="changeCellColor(this.id)">&nbsp;</a></td>
+          <td><a href="#" id = "17" onclick="changeCellColor(this.id)">&nbsp;</a></td>
+          <td><a href="#" id = "18" onclick="changeCellColor(this.id)">&nbsp;</a></td>
+          <td><a href="#" id = "19" onclick="changeCellColor(this.id)">&nbsp;</a></td>
+        </tr>
+      </table>
 
-    <br />
+      <br />
 
-    <!-- Players -->
-    <div id="players">
-      <h3 style="display:inline;">Player 1</h3> 
-      &nbsp;&nbsp;&nbsp;&nbsp;vs.&nbsp;&nbsp;&nbsp;&nbsp;  
-      <h3 style="display:inline;">Player 2</h3></div>
-
-  </body>
-  </html>
+      <!-- Players -->
+      <div id="players">
+        <h3 style="display:inline; id="p1">Player 1</h3>
+        &nbsp;&nbsp;&nbsp;&nbsp;vs.&nbsp;&nbsp;&nbsp;&nbsp;
+        <h3 style="display:inline; id="p2">Player 2</h3></div>
+      </body>
+      </html>

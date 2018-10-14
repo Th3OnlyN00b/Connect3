@@ -1,6 +1,6 @@
 import java.util.ArrayList;
 
-public class Random {
+public class Random implements Connect3{
 	public ArrayList<Integer> possibleMoves = new ArrayList<>();
 	public int play() {
 		return play(new C3(4,5));
